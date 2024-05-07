@@ -1,0 +1,125 @@
+\section{Graphical Models}
+\label{sec:graphical-models}
+
+\subsection{Introduction to graphical models}
+Remember our goal is to specify the joint distribution \textit{N} random variables $p(x_1,\cdots,x_N)=p(x)$. If we assume each $x_i$ is binary such that $x_i\in\{0,\:1\}$, then we need $\mathbf{2^N-1}$ parameters to specify $p(x)$. For example, $p(x_1=0,\:x_2=0,\:\cdots,x_N=0)\:\text{or}\:p(x_1=1,\:x_2=0,\:\cdots,x_N=0)$.\\ Equivalently, we can specify the joint distribution $p(x)$ as:
+\begin{align*}
+    p\left(x_1, x_2, \ldots, x_N\right)&=\prod_{j=1}^N p\left(x_j \mid x_1, x_2, \ldots, x_{j-1}\right)\\
+    &=p(x_1|x_0)p(x_2|x_1,\:x_0)\cdots
+\end{align*}
+Thus total number of parameters is $1+2+4+\cdots2^{N-1}=2^N-1$\\
+We can see that it requires a huge number of parameters to specify the joint distribution. We want to draw relationships between variables.
+\subsubsection*{Condition independence}
+For three random variables $x_A,\:x_B\:x_C$, if $x_A,\:x_B$ are conditionally independent given $x_C$, then we write $x_A\perp x_B\mid x_C$. The following conditions are equivalent:
+\begin{itemize}
+    \item $x_A\perp x_B\mid x_C$
+    \item $p(x_A,\:x_B|x_C)=p(x_A|x_C)p(x_B|x_C)$
+    \item $p(x_A|x_B,\:x_C)=p(x_A|x_C)$
+    \item $p(x_B|x_A,\:x_C)=p(x_B|x_C)$
+\end{itemize}
+\subsection{Directed Acyclic Graphical Models}
+A directed cyclic graphical model encode a particular form of factorization of the joint distribution. The form of factorization is various.\\
+\begin{figure}
+    \centering
+    \includegraphics[width=.7\linewidth]{figure_2.png}
+    \caption{An example of conditional probability tables(CPT)}
+    \label{fig:figure_2}
+\end{figure}
+\hyperref[fig:figure_2]{Figure 2} shows an example of conditional probability. From the graph, we only need $2^1*4+2^0+2^2=13<2^6-1$ parameters.\\
+\textbf{D-separation}: If $C$ d-separates $A$ and $B$, then $x_A\perp x_B\mid x_C\:\forall a\in A,\:b\in B$
+\subsubsection*{Bayes ball algorithm}
+Bayes ball determines the conditional independence/dependence in a DAG (I personally found this part most ambiguous). There are three fundamental Bayes ball algorithms which are causal chain, common cause and explaining away. For each one, we will under it intuitively by drawing a story.
+\begin{enumerate}
+  \item \textbf{Causal chain}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width = .7\linewidth]{figure_3.png}
+    \caption{An illustration of causal chain}
+  \end{figure}
+  \begin{align*}
+    p(z \mid x, y) & =\frac{p(x, y, z)}{p(x, y)} \\
+    & =\frac{p(x) p(y \mid x) p(z \mid y)}{p(x) p(y \mid x)} \\
+    & =p(z \mid y) \quad \\
+    \Rightarrow X\text { and }& Z \text { d-separated given } Y
+  \end{align*}
+  
+  \item \textbf{Common cause}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width = .7\linewidth]{figure_4.png}
+    \caption{An illustration of common cause}
+  \end{figure}
+  \begin{align*}
+    p(x, z \mid y)&=\frac{p(x, y, z)}{p(y)}\\
+    &=\frac{p(y) p(x \mid y) p(z \mid y)}{p(y)}\\
+    &=p(x \mid y) p(z \mid y)\\
+    \Rightarrow X\text { and }& Z \text { d-separated given } Y
+  \end{align*}
+  
+  \item \textbf{Explaining away}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width = .7\linewidth]{figure_5.png}
+    \caption{An illustration of explaining away}
+  \end{figure}
+  \begin{align*}
+    p(z \mid x, y) & =\frac{p(x) p(z) p(y \mid x, z)}{p(x) p(y \mid x)} \\
+    & =\frac{p(z) p(y \mid x, z)}{p(y \mid x)} \neq p(z \mid y)\\
+    \Rightarrow X\text { and }& Z \text { are NOT d-separated given } Y
+  \end{align*}
+\end{enumerate}
+In general, the Bayes ball works as follows:
+\begin{enumerate}
+    \item Shade all nodes $x_C$ (these are observed)
+    \item Place "balls" at each node in $x_A$ (or $x_B$ )
+    \item Let the "balls" "bounce" around according to some rules. If any of the balls reach any of the nodes in $x_B$ from $x_A$ then $x_A \not\perp x_B \mid x_C$. Otherwise $x_A \perp x_B \mid x_C$
+\end{enumerate}
+\textbf{Example}\\
+\textit{Question:} Is $x_2\perp x_3\mid\{x_1,\:x_6\}$
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = .7\linewidth]{figure_6.png}
+    \caption{An illustration of explaining away}
+  \end{figure}
+\textit{Answer:} No. By Bayes ball algorithm, $x_2$ can travel to $x_5$, and hence can travel to $x_3$.
+\subsubsection*{Moralization}
+Like I said, I personally do not like Bayes algorithm. Instead, another one called "moralization" is more straightforward and easier to use. We can follow the procedure:
+\begin{enumerate}
+    \item \textbf{Draw the ancestral graph}\\
+    We only keep the ancestor of the mentioned nodes. That said, in the previous example, we only keep the ancestors of $\{x_2,\:x_3,\:x_1\:x_6\}$. Hence we have the entire graph except the node $x_4$. Note the ancestors includes \textbf{their parents, parents' parents etc}.
+    \item \textbf{"Moralize" the ancestral graph by "marrying" the parents}\\
+    If two nodes have the same children, such as $x_2$ and $x_5$, then we draw a line between these two nodes.
+    \item \textbf{"Disorient" the graph}\\
+    Ignore the directions by replacing the arrows to edges.
+    \item \textbf{Delete the givens and their edges}\\
+    In the previous example, the givens are the $x_1$ and $x_4$.
+    \item \textbf{Find the answer}\\
+    After we finished the step 1 to 4, we then justify whether the two nodes are connected or disconnected. If \textbf{connected}, then the two nodes are conditionally \textbf{dependent}. Otherwise \textbf{disconnected}, the two nodes are conditionally \textbf{independent}. In the previous example, we can easily find that $x_2$ and $x_3$ are d-separated by $x_1$ and $x_6$.
+\end{enumerate}
+\textit{Question}: What about the marginal independence, such as $x_2\perp x_3$?\\
+\textit{Answer}: We use the same way as above without step 4.
+
+\subsection{Undirected Graphical Models}
+The undirected graphical models are also called the \textbf{Markov random fields (MRFs)}. Compare to graphical models, we have no more directed edges; instead, the dependencies are now described as undirected graphs. Moreover, \textbf{Markov blanket} is the set of nodes that makes $X_i$ conditionally independent of all other nodes. \textbf{Clique} is a subset of nodes that every two nodes are connected by an edge. \textbf{Maximal clique} a clique that can not be extended by including one more adjacent vertex.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = .7\linewidth]{figure_7.png}
+    \caption{An example of Markov random fields: \{1, 2, 3\} is a clique and \{4, 5, 6, 7\} is a maximal clique}
+\end{figure}
+\subsubsection*{Distribution induced by MRFs}
+\begin{itemize}
+    \item Let $X=\left(X_1, \ldots, X_m\right)$ be the set of all random variables in our graph $G$.
+    \item Let $\mathcal{C}$ be the set of all maximal cliques of $G$.
+    \item The distribution $p$ of $X$ factorizes with respect to $G$ if
+$$
+p(x) \propto \prod_{C \in \mathcal{C}} \psi_{\mathcal{C}}\left(x_C\right)
+$$
+for some nonnegative potential functions $\psi_C$, where $x_C=\left(x_i\right)_{i \in C}$.
+\end{itemize}
+The density can be factorized to cliques is also called the \textbf{Hammersley-Clifford Theorem}.\\
+\textbf{Global markov properties}: $X_A\perp X_B\mid X_S$ if the sets $A$ and $B$ are separated by $S$ in $G$ (every path from $A$ to $B$ has to pass $S$).
+
+hhhhhsss

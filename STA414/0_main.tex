@@ -1,0 +1,52 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb} 
+\usepackage[hidelinks]{hyperref} % Add hidelinks to suppress link boxes
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage{float,graphicx}
+
+\numberwithin{equation}{section}
+
+% Geometry Settings
+\geometry{margin=1in}
+
+% Header and Footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{STA414}
+\fancyfoot[R]{\thepage}
+
+% Title
+\title{STA414: Statistical Methods for Machine Learning II \\ Lecture Notes}
+\author{Yiliu Cao}
+\date{May 3, 2024}
+
+% Table of Contents Settings
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Title Page
+\maketitle
+\thispagestyle{empty}
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+%-------------1: Probabilistic models-----------
+\input{1_probabilistic_models.tex}
+
+%-------------1: Graphical models-----------
+\input{2_graphical_models.tex}
+
+\newpage
+%Appendix
+\input{appendix}
+\end{document}
