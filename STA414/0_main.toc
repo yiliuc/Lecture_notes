@@ -5,7 +5,7 @@
 \contentsline {subsection}{\numberline {2.1}Introduction to graphical models}{5}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Directed Acyclic Graphical Models}{6}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Undirected Graphical Models}{9}{subsection.2.3}%
-\contentsline {section}{\numberline {3}Appendix}{11}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Example 1}{11}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Example 2}{12}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Derivations 1}{13}{subsection.3.3}%
+\contentsline {section}{\numberline {3}Appendix}{13}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Example 1}{13}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Example 2}{14}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Derivations 1}{15}{subsection.3.3}%
