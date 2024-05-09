@@ -1,6 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{amssymb} 
 \usepackage[hidelinks]{hyperref} % Add hidelinks to suppress link boxes
 \usepackage{enumitem}
@@ -10,8 +11,13 @@
 \usepackage{float,graphicx}
 \usepackage{xcolor}
 
+% new functions
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
+\numberwithin{example}{section}
 
 % Geometry Settings
 \geometry{margin=1in}
@@ -48,7 +54,10 @@
 %-------------1: Graphical models-----------
 \input{2_graphical_models.tex}
 
+%-------------3: Inference-----------
+\input{3_inference.tex}
 \newpage
-%Appendix
+
+%-------------Appendix-----------
 \input{appendix}
 \end{document}

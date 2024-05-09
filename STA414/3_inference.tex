@@ -1,0 +1,34 @@
+\section{Inference}
+\subsection{Introduction to statistical inference}
+We want to explore the inference from the probabilistic graphical models. In notations, we have
+\begin{itemize}
+    \item $x_E$ represent the observed evidence
+    \item $x_F$ represent the unobserved varaible we want to infer
+    \item $x_R=x\{x_E,\:x_F\}$ represent the remaining variables
+\end{itemize} 
+For the conditional probability $p(x_F|x_E)$, by Bayes theorem:
+$$p\left(x_F \mid x_E\right)=\frac{p\left(x_F, x_E\right)}{p\left(x_E\right)}=\frac{p\left(x_F, x_E\right)}{\sum_{x_F} p\left(x_F, x_E\right)}$$
+Moreover, we can also marginalize the extraneous variables to have the marginal joint distribution:
+$$p\left(x_F, x_E\right)=\sum_{x_R} p\left(x_F, x_E, x_R\right)$$
+The below equation give us an intuition of exact inference, which is to marginalize other variables. However, when the number of variables increases, the order we marginalize will affect the computational cost. Hence we have to choose an appropriate \textbf{elimination order}. More specifically, we want to have the exact inference for one variable in DAGMs or MRFs.
+\begin{example}
+    \text{Suppose we have the simple chain for four variables A, B, C, D}\\
+    $$A \rightarrow B \rightarrow C \rightarrow D$$
+    where:
+    $$x_F=\{D\},\:x_E=\{A,\:B,\:C\},\:x_R=\{\}$$
+    We want to compute the exact inference of $D$, $p(D)$
+    In the simple chain settings, we can express the joint distribution as:
+    \begin{align*}
+        p(D)&=\sum_{A,B,C}p(A,B,C,D)\\
+        &=\sum_C \sum_B \sum_A p(A) p(B \mid A) p(C \mid B) p(D \mid C)
+    \end{align*}
+    If we choose an elimination order:
+    \begin{align*}
+        p(D)&=\sum_{A,B,C}p(A,B,C,D)\\
+        &=\sum_C p(D \mid C)\left(\sum_B p(C \mid B)\left(\sum_A p(A) p(B \mid A)\right)\right)\\
+        &=\sum_C p(D \mid C) \sum_B p(C \mid B) \sum_A p(A) p(B \mid A) \\
+        & =\sum_C p(D \mid C) \sum_B p(C \mid B) p(B) \\
+        & =\sum_C p(D \mid C) p(C)
+    \end{align*}
+    \end{example}
+The above example give us an intuition that we can firstly marginalize the node with no children (C first)
