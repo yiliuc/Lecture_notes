@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.7)  9 MAY 2024 01:27
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.7)  9 MAY 2024 02:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -593,8 +593,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
-Package rerunfilecheck Info: File `0_main.out' has not changed.
-(rerunfilecheck)             Checksum: 727115AB98E9709C4B34B9F0543E8ECF;2130.
+
+
+Package rerunfilecheck Warning: File `0_main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `0_main.out':
+(rerunfilecheck)             Before: 727115AB98E9709C4B34B9F0543E8ECF;2130
+(rerunfilecheck)             After:  FAF5F64EEB7DBCE43D771142A48BBC8E;2296.
  ) 
 Here is how much of TeX's memory you used:
  11389 strings out of 474773

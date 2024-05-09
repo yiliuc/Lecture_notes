@@ -28,7 +28,12 @@ The below equation give us an intuition of exact inference, which is to marginal
         &=\sum_C p(D \mid C)\left(\sum_B p(C \mid B)\left(\sum_A p(A) p(B \mid A)\right)\right)\\
         &=\sum_C p(D \mid C) \sum_B p(C \mid B) \sum_A p(A) p(B \mid A) \\
         & =\sum_C p(D \mid C) \sum_B p(C \mid B) p(B) \\
-        & =\sum_C p(D \mid C) p(C)
+        & =\sum_C p(D \mid C) p(C)\\
+        & =\sum_C p(D,\:C)
     \end{align*}
-    \end{example}
-The above example give us an intuition that we can firstly marginalize the node with no children (C first)
+\end{example}
+The above example give us an intuition that we can firstly marginalize the node with no children ($C$ first). Equivalently, we start the nodes that comes early in the induced ordering of the DAG.
+\subsection{Sum-product algorithm}
+\begin{example}
+    ss
+\end{example}
