@@ -1,5 +1,5 @@
-\section{Inference}
-\subsection{Introduction to statistical inference}
+\section{Exact Inference}
+\subsection{Introduction to exact inference}
 We want to explore the inference from the probabilistic graphical models. In notations, we have
 \begin{itemize}
     \item $x_E$ represent the observed evidence
@@ -35,5 +35,26 @@ The below equation give us an intuition of exact inference, which is to marginal
 The above example give us an intuition that we can firstly marginalize the node with no children ($C$ first). Equivalently, we start the nodes that comes early in the induced ordering of the DAG.
 \subsection{Sum-product algorithm}
 \begin{example}
-    ssaaa
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width = .7\linewidth]{figures/section3/figure_3_1.png}
+        \caption{An example of Sum-product inference}
+        \label{fig:sum-product}
+    \end{figure}
+    \text{}\\
+    To express the joint distribution, we introduce the nonnegative factors $\psi$: 
+    \begin{align*}
+        p(A, B, C) & =\sum_X p(A,\:B,\:C,\:X)\\
+        & =\sum_X p(X) p(A \mid X) p(B \mid A) p(C \mid B, X) \\
+        & =\sum_X \psi_1(X) \psi_2(A, X) \psi_3(A, B) \psi_4(X, B, C) \\
+        & =\psi_3(A, B) \sum_X \psi_1(X) \psi_2(A, X) \psi_4(X, B, C) \\
+        & =\psi_3(A, B) \tau(A, B, C)
+    \end{align*}
+    We eventually end with a new factor $\tau$ and it is an example of how sum-product algorithm works.
 \end{example}
+In general, we compute the the conditional distribution $p(x_F\mid x_E)$ using the \textbf{sum-product algorithm}. Denote $\mathcal{F}$ as the set of potentials or factors.
+$$p\left(x_F \mid x_E\right) \propto \tau\left(x_F, x_E\right)=\sum_{x_R} \prod_{C \in \mathcal{F}} \psi_C\left(x_C\right)$$
+For DAGMs, $\mathcal{F}$ is $\{i\}\cup\text{parents(i)},\:\forall\:\text{nodes i}$\\
+For MRFs, $\mathcal{F}$ is all maximal cliques.\\
+\newline
+We will see more about exact inference on \hyperref[sec:message-passing]{message passing}
