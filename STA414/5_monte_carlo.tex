@@ -1,1 +1,103 @@
 \section{Monte Carlo Methods}
+\subsection{Introduction to Monte Carlo Methods}
+In formal definitions, \textbf{Monte Carlo methods} is a \textbf{collection of methods} involving the use of simulated random numbers to estimate some functions of a probability distribution. Simply put, we use Monte Carlo methods to draw samples from an unknown distribution $p(x)$. After obtaining the samples, we can then estimate $p(x)$ via different methods such as moments, KDE, etc.\\
+
+A sample from a distribution $p(x)$ is a single realization $x$ whose probability distribution is $p(x)$. However, we assume that the density form $p(x)$ can be evaluated within a multivariate constant $Z$. That said:
+\begin{align*}
+    p(x) &= \frac{\tilde{p}(x)}{Z} \\
+         &\propto \tilde{p}(x)
+\end{align*}
+Here, $p(x)$ is very hard to evaluate due to the multivariate constant $Z$. Hence our primary goal is $\tilde{p(x)}$.
+\subsubsection*{Main objectives of sampling}
+Using the Monte Carlo methods, we aim to solve one or both of the following problems:
+\begin{enumerate}
+    \item Generate the samples $\{x^{(i)}\}^R_{r=1}$ from the unkown distribution $p(x)$.
+    \item To estimate the expectation of functions, $\psi(x)$, under the distribution $p(x)$
+    $$\Phi=\underset{x \sim p(x)}{\mathbb{E}}[\phi(x)]=\int \phi(x) p(x) d x$$
+\end{enumerate}
+\textbf{*Note}: The notation $\underset{x \sim p(x)}{\mathbb{E}}[\phi(x)]$ rerpresent the expected of value of the test function $\psi(x)$ and $x$ are the samples generated from $p(x)$.
+\subsubsection*{Simple Monte Carlo}
+Given $\left\{x^{(r)}\right\}_{r=1}^R \sim p(x)$ we can estimate the expectation $\underset{x \sim p(x)}{\mathbb{E}}[\phi(x)]$ using the estimator $\hat{\phi}$ :
+$$
+\Phi:=\underset{x \sim p(x)}{\mathbb{E}}[\phi(x)] \approx \frac{1}{R} \sum_{r=1}^R \phi\left(x^{(r)}\right):=\hat{\Phi}
+$$
+\textit{$\hat{\Phi}$ follows the same from the Law of Large Numbers (LLN).}\\
+Moreover, $\hat{\Phi}$ is \textbf{unbiased} and its variance is $\frac1R\text{var}[\phi(x)]$, proof can be found \hyperref[smc]{here}.
+
+\subsection{Three Sampling Methods}
+\subsubsection*{Ancestral Sampling}
+Ancestral sampling follows the same algorithm we saw from the conditional depencies of DAGMs. We start to sample the nodes with no parents and then sample any other conditional distribution at next steps.
+\begin{example}
+    Suppose we have a DAGM whose joint distribution can be factorized as follows:
+    $$
+    \begin{aligned}
+    p\left(x_{1, \ldots, 5}\right) & =\prod_i^5 p\left(x_i \mid \operatorname{parents}\left(x_i\right)\right) \\
+    & =p\left(x_1\right) p\left(x_2 \mid x_1\right) p\left(x_3 \mid x_1\right) p\left(x_4 \mid x_2, x_3\right) p\left(x_5 \mid x_3\right)
+    \end{aligned}
+    $$
+    The sampling process works as follows:
+    \begin{enumerate}
+        \item Start by sampling from $p\left(x_1\right)$.
+        \item Then sample from $p\left(x_2 \mid x_1\right)$ and $p\left(x_3 \mid x_1\right)$.
+        \item Then sample from $p\left(x_4 \mid x_2, x_3\right)$.
+        \item Finally, sample from $p\left(x_5 \mid x_3\right)$.
+    \end{enumerate}
+    For example, to sample $p(x_2|x_1)$, we take $x_1$ as the time of a day and $x_2$ as the temperature. Different time on a day will have different distribution of temperature. For example, we can assume $x_2\sim N(T(x_1),3^2)$.
+\end{example}
+
+However, the main shortcuts of acestral sampling is that it can not compute the normlizing constant $Z$, where 
+\begin{align*}
+    p(x) &=\frac{\tilde{p}(x)}{Z}\\
+    Z &=\int \tilde{p}(x) d x
+\end{align*}
+
+To compute $Z$, one \textbf{bad idea} is to divide $x$ in to many intervals. However, it will be very hard if we have high-dimensional data.\\
+
+To accommodate the high-dimensioanal errors, we have two other sampling methods which are \textbf{Importance Sampling} and \textbf{Rejection Sampling}.
+
+\subsubsection*{Importance Sampling}
+Instead of sampling $p(x)$, we can choose $q(x)$ which is easier to sample from (like Gaussian). Our goal is still to estimate the expectation of $\phi(x)$. That said, we have:
+\begin{align*}
+    p(x) &=\frac{\tilde{p}(x)}{Z_p}\\
+    q(x) &=\frac{\tilde{q}(x)}{Z_q}
+\end{align*} 
+We then generate $R$ samples from $q(x)$: $\{x^{(r)}\}_{r=1}^{r=R}$. If the samples are also generated from $p(x)$, then we can use simple Monte Carlo; however, these are generated from $q(x)$.\\
+To correct this, we introduce the weights, which works as:\\
+\begin{enumerate}
+    \item we define weights as $\tilde{w}_r=\frac{\tilde{p}\left(x^{(r)}\right)}{\tilde{q}\left(x^{(r)}\right)}=\frac{Z_p}{Z_q} \frac{p\left(x^{(r)}\right)}{q\left(x^{(r)}\right)}$ and notice that
+    $$
+    \frac{1}{R} \sum_{r=1}^R \tilde{w}_r \approx \underset{x \sim q(x)}{\mathbb{E}}\left[\frac{\tilde{p}(x)}{\tilde{q}(x)}\right]=\frac{Z_p}{Z_q} \int \frac{p(x)}{q(x)} q(x) d x=\frac{Z_p}{Z_q}
+    $$
+    \item Finally, we rewrite our estimator under $q$
+    $$
+    \phi=\int \phi(x) p(x) d x=\int \phi(x) \cdot \frac{p(x)}{q(x)} \cdot q(x) d x \approx \frac{1}{R} \sum_{r=1}^R \phi\left(x^{(r)}\right) \frac{p\left(x^{(r)}\right)}{q\left(x^{(r)}\right)}=(*)
+    $$
+    \item However, the estimator relies on $p$. It can only rely on $\tilde{p}$ and $\tilde{q}$.
+    $$
+    \begin{aligned}
+    (*)= & \frac{Z_q}{Z_p} \frac{1}{R} \sum_{r=1}^R \phi\left(x^{(r)}\right) \cdot \frac{\tilde{p}\left(x^{(r)}\right)}{\tilde{q}\left(x^{(r)}\right)}=\frac{Z_q}{Z_p} \frac{1}{R} \sum_{r=1}^R \phi\left(x^{(r)}\right) \cdot \tilde{w}_r \\
+    & \approx \frac{\frac{1}{R} \sum_{r=1}^R \phi\left(x^{(r)}\right) \cdot \tilde{w}_r}{\frac{1}{R} \sum_{r=1}^R \tilde{w}_r}=\sum_{r=1}^R \phi\left(x^{(r)}\right) \cdot w_r=\hat{\Phi}_{i w}
+    \end{aligned}
+    $$
+    where $w_r=\frac{\tilde{k}_r}{\sum_{r=1}^R \tilde{w}_r}$ and $\hat{\Phi}_{i w}$ is our importance weighted estimator.
+    \end{enumerate}
+
+\subsubsection*{Rejection Sampling}
+The common thing between importance sampling and rejection sampling is that we use introduce an easier distribution $q(x)$ to estimate $p(x)$. However, in rejection sampling, we assume:
+$$c\tilde{q}(x)>\tilde{p}(x),\forall x$$
+The algorithm works as follows:
+\begin{enumerate}
+    \item Generate two random numbers $x$ and $u$.
+    \begin{enumerate}[label=1.\arabic*]
+        \item $x$ is generated from $q(x)$.
+        \item $u$ is generated uniformly from the interval $[0, c \tilde{q}(x)]$.
+    \end{enumerate}
+    \item Accept or reject the sample $x$ by comparing the value of $u$ with $\tilde{p}(x)$
+    \begin{enumerate}[label=2.\arabic*]
+        \item \textbf{Reject} $x$ if $u>\tilde{p}(x)$
+        \item Otherwise $x$ is accepted; $x$ is added to our set of samples $\left\{x^{(r)}\right\}$.
+    \end{enumerate}
+\end{enumerate}
+The reason why Rejection Sampling work is that $\mathbb{P}_{x \sim q}(x \in A \mid u \leq \tilde{p}(x))=\mathbb{P}_{x \sim p}(x \in A)$(\textit{Full derivation \hyperref[sec:rejection]{here}}).\\
+
+In other words, rejection sampling also has shortcuts. In high-dimensional case, the $c$ will be very large and hence the acceptance rate will be very small. Moreover, such $c$ will also be hard to define.

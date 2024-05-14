@@ -193,3 +193,42 @@ b\left(x_3\right) \propto \psi_3\left(x_1\right) m_{1 \rightarrow 3}\left(x_3\ri
 \end{array}\right]
 $$
 giving that $p\left(x_3=1 \mid \bar{x}_2=1, \bar{x}_4=1, \bar{x}_5=0\right)=\frac{8}{13}$.
+
+\subsection{Derivations 2}
+\label{smc}
+\subsubsection*{Unbiaseness}
+If the vectors $\left\{x^{(r)}\right\}_{r=1}^R$ are generated independently from $p(x)$, then the expectation of $\hat{\phi}$ is $\Phi$. Indeed,
+$$
+\begin{aligned}
+\mathbb{E}[\hat{\Phi}] & =\mathbb{E}\left[\frac{1}{R} \sum_{r=1}^R \phi\left(x^{(r)}\right)\right]=\frac{1}{R} \sum_{r=1}^R \mathbb{E}\left[\phi\left(x^{(r)}\right)\right] \\
+& =\frac{1}{R} \sum_{r=1}^R \underset{x \sim p(x)}{\mathbb{E}}[\phi(x)]=\frac{R}{R} \underset{x \sim p(x)}{\mathbb{E}}[\phi(x)] \\
+& =\Phi
+\end{aligned}
+$$
+\subsubsection*{Variance}
+As the number of samples of $R$ increases, the variance of $\hat{\phi}$ will decrease with rate $\frac{1}{R}$
+$$
+\begin{aligned}
+\operatorname{var}[\hat{\phi}]= & \operatorname{var}\left[\frac{1}{R} \sum_{r=1}^R \phi\left(x^{(r)}\right)\right]=\frac{1}{R^2} \operatorname{var}\left[\sum_{r=1}^R \phi\left(x^{(r)}\right)\right] \\
+& =\frac{1}{R^2} \sum_{r=1}^R \operatorname{var}\left[\phi\left(x^{(r)}\right)\right]=\frac{R}{R^2} \operatorname{var}[\phi(x)]=\frac{1}{R} \operatorname{var}[\phi(x)]
+\end{aligned}
+$$
+
+\subsection{Derivations 3}
+\label{sec:rejection}
+\textbf{WTS}: $\mathbb{P}_{x \sim q}(x \in A \mid u \leq \tilde{p}(x))=\mathbb{P}_{x \sim p}(x \in A)$\\
+Recall:
+\begin{itemize}
+    \item Note: $\mathbb{P}(u \leq \tilde{p}(x) \mid x)=\frac{\tilde{p}(x)}{c \tilde{q}(x)}($ remember we assume $\tilde{p}(x)<x \tilde{q}(x))$.
+    \item $\forall A \subseteq \mathcal{X}: \quad \mathbb{P}_{x \sim p}(x \in A)=\int_A p(x) d x=\int \mathbf{1}_{\{x \in A\}} p(x) d x=\mathbb{E}_{x \sim p}\left[\mathbf{1}_{\{x \in A\}}\right]$
+    \item Law of total expectation $\mathbb{E}[\mathbb{E}[Z \mid \mathcal{H}]]=\mathbb{E} Z$
+\end{itemize}
+We then have:
+$$
+\begin{aligned}
+\mathbb{P}_{x \sim q}(x \in A \mid u \leq \tilde{p}(x)) & =\mathbb{P}_{x \sim q}(x \in A, u \leq \tilde{p}(x)) / \mathbb{E}_{x \sim q}[\mathbb{P}(u \leq \tilde{p}(x) \mid x)] \\
+& =\mathbb{E}_{x \sim q}\left[\mathbf{1}_{\{x \in A\}} \mathbb{P}(u \leq \tilde{p}(x) \mid x)\right] / \mathbb{E}_{x \sim q}\left[\frac{\tilde{p}(x)}{c \tilde{q}(x)}\right] \\
+& =\mathbb{E}_{x \sim q}\left[\mathbf{1}_{\{x \in A\}} \frac{\tilde{p}(x)}{c \tilde{q}(x)}\right] / \frac{Z_p}{c Z_q}=\mathbb{P}_{x \sim p}(x \in A) \frac{Z_p}{c Z_q} / \frac{Z_p}{c Z_q} \\
+& =\mathbb{P}_{x \sim p}(x \in A)
+\end{aligned}
+$$
