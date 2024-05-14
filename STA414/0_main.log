@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.7)  14 MAY 2024 01:59
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.7)  14 MAY 2024 02:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -337,7 +337,8 @@ File: l3backend-xetex.def 2024-02-20 L3 backend support: XeTeX
 \g__pdf_backend_object_int=\count294
 \g__pdf_backend_annotation_int=\count295
 \g__pdf_backend_link_int=\count296
-) (./0_main.aux)
+)
+No file 0_main.aux.
 \openout1 = `0_main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
@@ -350,7 +351,7 @@ LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
 LaTeX Font Info:    ... okay on input line 41.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 41.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmr.fd
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 41.
@@ -365,10 +366,12 @@ LaTeX Font Info:    ... okay on input line 41.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 41.
 LaTeX Font Info:    ... okay on input line 41.
 Package hyperref Info: Link coloring OFF on input line 41.
- (./0_main.out) (./0_main.out)
 \@outlinefile=\write3
 \openout3 = `0_main.out'.
 
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -411,11 +414,12 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 45.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (./0_main.toc)
+)
+No file 0_main.toc.
 \tf@toc=\write4
 \openout4 = `0_main.toc'.
 
- [1
+[1
 
 ] (./1_probabilistic_models.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--6
@@ -430,6 +434,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [2]
+
+LaTeX Warning: Hyper reference `example-1' on page 3 undefined on input line 42.
+
+
+LaTeX Warning: Hyper reference `example-2' on page 3 undefined on input line 55.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 58--61
 
  []
@@ -451,7 +462,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[4]) (./2_graphical_models.tex
+[4]
+
+LaTeX Warning: Hyper reference `derivations-1' on page 5 undefined on input line 109.
+
+) (./2_graphical_models.tex
 Overfull \hbox (0.68126pt too wide) in paragraph at lines 5--6
 \TU/lmr/m/n/12 Remember our goal is to specify the joint distribution \TU/lmr/m/it/12 N \TU/lmr/m/n/12 random variables $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]; []  ; x[]\OT1/cmr/m/n/12 ) =
  []
@@ -466,9 +481,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [5]
 File: figures/section2/figure_2_1.png Graphic file (type bmp)
 <figures/section2/figure_2_1.png>
+
+
+LaTeX Warning: Hyper reference `fig:figure_2' on page 6 undefined on input line 28.
+
 File: figures/section2/figure_2_2.png Graphic file (type bmp)
 <figures/section2/figure_2_2.png>
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -561,7 +579,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[13])
+[13]
+
+LaTeX Warning: Hyper reference `sec:message-passing' on page 14 undefined on input line 61.
+
+)
 Underfull \hbox (badness 10000) in paragraph at lines 57--59
 
  []
@@ -588,6 +610,9 @@ File: figures/section4/figure_4_1.png Graphic file (type bmp)
 <figures/section4/figure_4_1.png>
 
 
+LaTeX Warning: Hyper reference `fig:tree' on page 15 undefined on input line 35.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -600,6 +625,9 @@ Overfull \hbox (17.00879pt too wide) detected at line 47
  []
 
 
+LaTeX Warning: Hyper reference `sec:sum-product' on page 16 undefined on input line 50.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -607,6 +635,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [16]
+
+LaTeX Warning: Hyper reference `fig:tree' on page 17 undefined on input line 74.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -618,6 +649,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 Underfull \hbox (badness 10000) in paragraph at lines 109--110
 
  []
+
+
+LaTeX Warning: Hyper reference `example-3' on page 18 undefined on input line 118.
 
 ) (./5_monte_carlo.tex
 Underfull \hbox (badness 10000) in paragraph at lines 3--4
@@ -632,6 +666,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [18]
+
+LaTeX Warning: Hyper reference `smc' on page 19 undefined on input line 25.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -657,6 +694,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [20]
+
+LaTeX Warning: Hyper reference `sec:rejection' on page 21 undefined on input line 101.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 101--102
 
  []
@@ -691,6 +732,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [23]
 
+LaTeX Warning: Hyper reference `fig:tree' on page 24 undefined on input line 95.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -718,14 +762,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
-Package rerunfilecheck Info: File `0_main.out' has not changed.
-(rerunfilecheck)             Checksum: 5B05465EC006F7129071B8BA178AE0D3;3908.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `0_main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `0_main.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  5B05465EC006F7129071B8BA178AE0D3;3908.
  ) 
 Here is how much of TeX's memory you used:
- 11433 strings out of 474773
- 177077 string characters out of 5757725
+ 11415 strings out of 474773
+ 176852 string characters out of 5757725
  1936839 words of memory out of 5000000
- 33400 multiletter control sequences out of 15000+600000
+ 33390 multiletter control sequences out of 15000+600000
  568522 words of font info for 85 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  72i,19n,79p,582b,477s stack positions out of 10000i,1000n,20000p,200000b,200000s
