@@ -10,14 +10,32 @@
 \usepackage{graphicx}
 \usepackage{float,graphicx}
 \usepackage{xcolor}
+\usepackage{titlesec}
 
 % new functions
 \theoremstyle{definition}
 \newtheorem{example}{Example}
 
+\makeatletter
+\newcommand\thefontsize{The current font size is: \f@size pt}
+\makeatother
+
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
 \numberwithin{example}{subsection}
+
+% Set the font size
+% Set the font size for \section
+\titleformat{\section}
+  {\normalfont\fontsize{16}{16}\bfseries}{\thesection}{1em}{}
+
+% Set the font size for \subsection
+\titleformat{\subsection}
+  {\normalfont\fontsize{14}{14}\bfseries}{\thesubsection}{1em}{}
+
+% Set the font size for \subsubsection
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{14}{14}\bfseries}{\thesubsubsection}{1em}{}
 
 % Geometry Settings
 \geometry{margin=1in}
