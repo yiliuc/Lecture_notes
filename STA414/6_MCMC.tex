@@ -71,6 +71,24 @@ The stationary\footnote{the "stationary" in "stationary distribution" is not as 
     which is the stationary distribution of the Markov chain.
 \end{itemize}
 
-\subsubsection*{Recall: Eigenvalues and Eigenvectors}
+\textbf{Recall: Eigenvalues and Eigenvectors}\\
 Let $T$ be a transformation, $\mathbf{v}$ be a vector and $\lambda$ be a constant. If we have:
 $$T\mathbf{v}=\lambda\mathbf{v}$$
+Then $\mathbf{v}$ is the eigenvector of $T$ and $\lambda$ is the eigenvalue.\\
+
+Therefore, it follows that the statioanary distribution $\pi$ is an eigenvector of $A^T$ with eigenvalue 1. In other words, $A$ and $A^T$ have the same eigenvalues and $A\mathbf{1}=\mathbf{1}$ as the row sum of $A$ is 1. Thus, due to the equality of characteristics polynomials, 1 is also the eigenvalue of $A^T$. More importantly, \colorbox{yellow}{\textbf{stationary distribution is NOT unique}}.
+
+\subsubsection*{Detailed balance equation}
+Markov Chain is called:
+\begin{itemize}
+    \item \textbf{irreducible} if we can get from any state to any other state.
+    \item \textbf{regular} if $A^n$ has positive entries for some $n$.
+    \item \textbf{time reversible} if there exists a distribution $\pi$ such that
+    $$
+    \underbrace{\pi_i A_{i j}=\pi_j A_{j i}}_{\textbf{detailed balance equation}} \quad \text { for all } i, j .
+    $$
+    In other words, detailed balance means the probability of transition from one state to another and reverse back is \textbf{equally possible}.
+\end{itemize}
+\begin{theorem}
+    If a markov chain with transition matrix $A$ satisfies the detailed balance with respect to distribution $\pi$, then $\pi$ is a stationary distribution.
+\end{theorem}
