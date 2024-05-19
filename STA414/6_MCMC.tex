@@ -58,7 +58,7 @@ Language models can be represented as Markov Chains. That said, each word is a s
 \end{align*}
 
 \subsection{Stationary distribution of a (homongeneous) Markov Chain}
-The stationary\footnote{the "stationary" in "stationary distribution" is not as same as in "stationary Markov chain." Therefore, we usually called it as homongeneous Markov chains.} distribution is the \textbf{long-term} distribution over states. In notation, we have $\pi_t(j)=p(x_t=j)$, to be the probability of being in state $j$ on time $t$.\\
+The stationary\footnote{the "stationary" in "stationary distribution" is not as same as in "stationary Markov chain." Therefore, we usually called it as homongeneous Markov chains.} distribution is the \textbf{long-term} distribution over states. It is also called the \textbf{steady state}. In notation, we have $\pi_t(j)=p(x_t=j)$, to be the probability of being in state $j$ on time $t$.\\
 \begin{itemize}
     \item We have the initial distribution which is given by $\pi_0\in\mathbb{R}^{K}$
     \item We then represent $\pi_1$ as:
@@ -76,7 +76,9 @@ Let $T$ be a transformation, $\mathbf{v}$ be a vector and $\lambda$ be a constan
 $$T\mathbf{v}=\lambda\mathbf{v}$$
 Then $\mathbf{v}$ is the eigenvector of $T$ and $\lambda$ is the eigenvalue.\\
 
-Therefore, it follows that the statioanary distribution $\pi$ is an eigenvector of $A^T$ with eigenvalue 1. In other words, $A$ and $A^T$ have the same eigenvalues and $A\mathbf{1}=\mathbf{1}$ as the row sum of $A$ is 1. Thus, due to the equality of characteristics polynomials, 1 is also the eigenvalue of $A^T$. More importantly, \colorbox{yellow}{\textbf{stationary distribution is NOT unique}}.
+Therefore, it follows that the statioanary distribution $\pi$ is an eigenvector of $A^T$ with eigenvalue 1. In other words, $A$ and $A^T$ have the same eigenvalues and $A\mathbf{1}=\mathbf{1}$ as the row sum of $A$ is 1. Thus, due to the equality of characteristics polynomials, 1 is also the eigenvalue of $A^T$. More importantly, \colorbox{yellow}{\textbf{stationary distribution is NOT unique}}.\\
+
+\textit{An example of how to compute the stationary distribution can be found here}.
 
 \subsubsection*{Detailed balance equation}
 Markov Chain is called:
@@ -92,3 +94,5 @@ Markov Chain is called:
 \begin{theorem}
     If a markov chain with transition matrix $A$ satisfies the detailed balance with respect to distribution $\pi$, then $\pi$ is a stationary distribution.
 \end{theorem}
+
+\subsection{Sampling Methods}

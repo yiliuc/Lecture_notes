@@ -240,9 +240,47 @@ $$
     \caption{An example of transition matrix}
     \label{fig:transition-example}
 \end{figure}
+The transition matrix is:
 $$
 A=\left[\begin{array}{cc}
 1-\alpha & \alpha \\
 \beta & 1-\beta
 \end{array}\right]
 $$
+
+\subsection{Example 4}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = .4\linewidth]{figures/appendix/appendix_2.png}
+    \caption{An example of stationary distribution}
+    \label{fig:sta_distribution-example}
+\end{figure}
+The transition matrix for the above markov chain is:
+$$
+A=\left[\begin{array}{ccccc}
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\ 
+0 & 0.5 & 0 & 0.5 & 0 \\ 
+0 & 0 & 1 & 0 & 0 \\ 
+0 & 0.1 & 0 & 0 & 0.9 
+\end{array}\right]
+$$
+Notice that the stationary distribution $\pi=[\pi_A,\pi_B,\pi_C,\pi_D,\pi_E]$
+The stationary distribution $\pi$ is computed as follows:
+\begin{enumerate}
+    \item $\pi_A$ must be 0 as it is not possible that we are at state $A$ at the next step. However, we may stay on A for the current step.
+    \item The obly way to be at state $E$ at next step is that we are already at state $E$ at the current step.
+    $$0.9\pi_E=\pi_E \Rightarrow \pi_E=0$$
+    \item To stay at state $B$ at the next step, we can stay at state $C$ or $E$ at the current step:
+    $$0.5\pi_C+0.1\pi_E=\pi_B\Rightarrow \pi_C=2\pi_B$$
+    \item Similarly, to stay at state $C$ at the next step, we can stay at $A$ or $D$.
+    $$1\pi_A+1\pi_D=\pi_C$$
+    \item Notice that $\sum_{i} \pi_i=1$
+    $$\pi=[0,0.2,0.4,0.4,0]$$
+\end{enumerate}
+\textbf{Equivalently}:\
+\begin{align*}
+    A^T\pi &=\pi\\
+    \pi&=[0,0.2,0.4,0.4,0]
+\end{align*}
+This result tells us that it is 0, 20, 40, 40 and 0 percent of staying at the five states at the current step. This also holds for the next, next next step etc.
