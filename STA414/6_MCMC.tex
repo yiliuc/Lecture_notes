@@ -9,14 +9,14 @@ In most cases, we assume the samples are independent. However, it is a poor assu
 \end{figure}
 \hyperref[fig:f_mc]{Figure 6.1} shows an example of First order Markov chain.
 \begin{align*} 
-    p\left(x_t \mid x_{1: t-1}\right)&=p\left(x_t \mid x_{t-1}\right)\\
-    &=\prod_{t=1}^T p\left(x_t \mid x_{t-1}\right)
+    p\left(x_t | x_{1: t-1}\right)&=p\left(x_t | x_{t-1}\right)\\
+    &=\prod_{t=1}^T p\left(x_t | x_{t-1}\right)
 \end{align*}
 From the graph, we can see that the first order means each node is conditioned on the previous node. We can therefore generalize to higher order Markov Chains.
 \begin{itemize}    \item For second-order Markov Chains:
-    $$p\left(x_t \mid x_{1: t-1}\right)=p\left(x_t \mid x_{t-1},x_{t-2}\right)$$
+    $$p\left(x_t | x_{1: t-1}\right)=p\left(x_t | x_{t-1},x_{t-2}\right)$$
     \item For m-order Markov Chains:
-    $$p\left(x_{1: T}\right)=p\left(x_t \mid x_{t-1:t-m}\right)$$
+    $$p\left(x_{1: T}\right)=p\left(x_t | x_{t-1:t-m}\right)$$
 \end{itemize}
 We have two further definations:\\
 \textbf{Stationary(homongeneous) Markov Chain}: The distribution generating the data does not change over time:
@@ -28,7 +28,7 @@ If we assume $x_t$ is discrete: $x_t\in\{1,2,\cdots,K\}$. Then the conditional d
 $$A_{ij}=p(x_t=j|x_{t-1}=i),\:A\in K\times K$$
 We also have:
 \begin{align*} 
-    p\left(x_t=j\right) & =\sum_i p\left(x_t=j \mid x_{t-1}=i\right) p\left(x_{t-1}=i\right) \\ 
+    p\left(x_t=j\right) & =\sum_i p\left(x_t=j | x_{t-1}=i\right) p\left(x_{t-1}=i\right) \\ 
     & =\sum_i A_{i j} p\left(x_{t-1}=i\right)
 \end{align*}
 The sum for each row in $A$ equals to \textbf{1} as it represent all the possibilities of changing from $t-1$ to $t$ ginve $i$ at $t-1$.
@@ -36,7 +36,7 @@ $$\sum_i A_{i j}=1$$
 \textit{An example of transition matrix can be found \hyperref[fig:transition-example]{here}.}\\
 The $n$-step transition matrix $A(n)$is the probability of transferring from two states in $n$ steps, where $n$ can be considered as \textit{"n"} times. In equation:
 $$
-A_{i j}(n)=p\left(x_{t+n}=j \mid x_t=i\right)
+A_{i j}(n)=p\left(x_{t+n}=j | x_t=i\right)
 $$
 Since the one-step transition matrix considers $t-1$ and $t$ (or equivalently $t$ and $t+1$)
 $$A(1)=A$$
@@ -53,7 +53,7 @@ $\Rightarrow A(n)=A(1+n-1)=A \cdot A(n-1)=A \cdot A \cdot A(n-2)=\cdots=A^n$.
 Language models can be represented as Markov Chains. That said, each word is a state, and the probability of transition from one word to another can be also represented as transition matrix.
 
 \begin{align*} 
-    p\left(x_{1: T} \mid \theta\right) & =\pi\left(x_1\right) A\left(x_1, x_2\right) \cdots A\left(x_{T-1}, x_T\right) \\
+    p\left(x_{1: T} | \theta\right) & =\pi\left(x_1\right) A\left(x_1, x_2\right) \cdots A\left(x_{T-1}, x_T\right) \\
     & =\underbrace{\prod_{j=1}^K \pi_j^{1\left[x_1=j\right]}}_{\text{prob. starting with }x_1} \prod_{t=2}^T \prod_{j=1}^K \prod_{k=1}^K A_{j k}^{1\left[x_t=k, x_{t-1}=j\right]}
 \end{align*}
 
@@ -62,7 +62,7 @@ The stationary\footnote{the "stationary" in "stationary distribution" is not as 
 \begin{itemize}
     \item We have the initial distribution which is given by $\pi_0\in\mathbb{R}^{K}$
     \item We then represent $\pi_1$ as:
-    $$\pi_1(j)=\sum_{i=1}^K p\left(x_1=j \mid x_0=i\right) \pi_0(i)=\sum_{i=1}^K A_{i j} \pi_0(i)=\sum_{i=1}^K\left(A^{\top}\right)_{j i} \pi_0(i)$$
+    $$\pi_1(j)=\sum_{i=1}^K p\left(x_1=j | x_0=i\right) \pi_0(i)=\sum_{i=1}^K A_{i j} \pi_0(i)=\sum_{i=1}^K\left(A^{\top}\right)_{j i} \pi_0(i)$$
     $$\Rightarrow \pi_1=A^T\pi_0$$
     \item We can therefore generalize to $\pi_t$.
     $$\pi_t=A^{\top} \pi_{t-1}=A^{\top} A^{\top} \pi_{t-2}=\cdots=\left(A^{\top}\right)^t \pi_0$$
@@ -94,5 +94,24 @@ Markov Chain is called:
 \begin{theorem}
     If a markov chain with transition matrix $A$ satisfies the detailed balance with respect to distribution $\pi$, then $\pi$ is a stationary distribution.
 \end{theorem}
+Recall in rejection sampling, we accept the samples independently. In contrast, we assume the samples are \textbf{dependent}, where each sample is a state in the Markov chain and $x^{(t)}$ has a probability distribution depending on the previous one $x^{t-1}$. In other words, we will \textbf{learn} from the previous samples. Hence the stationary distribution will be $p(x)$.\\
 
-\subsection{Sampling Methods}
+\subsection{Metropolis-Hasting Algorithms}
+
+Compared to rejection sampling, metropolis-hasting prose a simple density $q$ which depends on the current state $x^{(t)}$. If $q$ is Gaussian, then its center will be $x^{(t)}$. As before, assume we can evaluate $\tilde{p}(x)$ for any $x$. The algorithm follows as:
+\begin{itemize}
+    \item We firstly have a tentative new state $x^{\prime}$ is generated from the proposal density $q\left(x^{\prime} | x^{(t)}\right)$. We accept the new state with probability
+    \item We then compute:
+    $$
+    A\left(x^{\prime}|x^{(t)}\right)=\min \left\{1, \underbrace{\frac{\tilde{p}\left(x^{\prime}\right) q\left(x^{(t)}|x^{\prime}\right)}{\tilde{p}\left(x^{(t)}\right) q\left(x^{\prime} | x^{(t)}\right)}}_{\mathcal{B}}\right\}
+    $$
+    \item for $\mathcal{B}$
+    \begin{itemize}
+        \item If $\mathcal{B}>1$, then accept the new state.
+        \item If $\mathcal{B}<1$, we sample $u\sim N(0,1)$. Accept if $u\leq\mathcal{B}$;otherwise reject.
+    \end{itemize}
+\end{itemize}
+-Metropolis: Simpler version when $q\left(x^{\prime} | x\right)=q\left(x \mid x^{\prime}\right)$ for all $x, x^{\prime}$.
+\begin{theorem}
+    This procedure defines a Markov chain with stationary distribution $\pi(x)$ equal to the target distribution $p(x)$. $\pi(x)=p(x)$. \textit{proof \hyperref[sec:proof-metro]{here}}
+\end{theorem}
