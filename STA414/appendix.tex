@@ -249,6 +249,7 @@ A=\left[\begin{array}{cc}
 $$
 
 \subsection{Example 4}
+\label{sec:example-stationary}
 \begin{figure}[H]
     \centering
     \includegraphics[width = .4\linewidth]{figures/appendix/appendix_2.png}
@@ -293,15 +294,15 @@ $$
 r\left(x^{\prime} \mid x\right)=\left\{\begin{array}{ll}
 q\left(x^{\prime} \mid x\right) A\left(x^{\prime} \mid x\right) & \text { if } x^{\prime} \neq x \\
 q(x \mid x)+\sum_{x^{\prime} \neq x} q\left(x^{\prime} \mid x\right)\left(1-A\left(x^{\prime} \mid x\right)\right) & \text { if } x^{\prime}=x
-\end{array} .\right.
+\end{array}\right.
 $$
 
-Show (DB) $r\left(x^{\prime} \mid x\right) p(x)=r\left(x \mid x^{\prime}\right) p\left(x^{\prime}\right)$. If $x \neq x^{\prime}$
-$$
-\begin{aligned}
-& r\left(x^{\prime} \mid x\right) p(x)=p(x) q\left(x^{\prime} \mid x\right) \min \left\{1, \frac{p\left(x^{\prime}\right) q\left(x \mid x^{\prime}\right)}{p(x) q\left(x^{\prime} \mid x\right)}\right\}=\min \left\{p\left(x^{\prime}\right) q\left(x \mid x^{\prime}\right), p(x) q\left(x^{\prime} \mid x\right)\right\} \\
-& r\left(x \mid x^{\prime}\right) p\left(x^{\prime}\right)=p\left(x^{\prime}\right) q\left(x \mid x^{\prime}\right) \min \left\{1, \frac{p(x) q\left(x^{\prime} \mid x\right)}{p\left(x^{\prime}\right) q\left(x \mid x^{\prime}\right)}\right\}=\min \left\{p\left(x^{\prime}\right) q\left(x \mid x^{\prime}\right), p(x) q\left(x^{\prime} \mid x\right)\right\}
-\end{aligned}
-$$
+\textbf{WTS}: Detailed Balance: $r\left(x^{\prime} \mid x\right) p(x)=r\left(x \mid x^{\prime}\right) p\left(x^{\prime}\right)$. If $x \neq x^{\prime}$
+\begin{align*}
+    r\left(x^{\prime} \mid x\right) p(x)&=p(x) q\left(x^{\prime} \mid x\right) \min \left\{1, \frac{p\left(x^{\prime}\right) q\left(x \mid x^{\prime}\right)}{p(x) q\left(x^{\prime} \mid x\right)}\right\}\\
+    &=\min \left\{p\left(x^{\prime}\right) q\left(x \mid x^{\prime}\right), p(x) q\left(x^{\prime} \mid x\right)\right\}\\
+    r\left(x \mid x^{\prime}\right) p\left(x^{\prime}\right)&=p\left(x^{\prime}\right) q\left(x \mid x^{\prime}\right) \min \left\{1, \frac{p(x) q\left(x^{\prime} \mid x\right)}{p\left(x^{\prime}\right) q\left(x \mid x^{\prime}\right)}\right\}\\
+    &=\min \left\{p\left(x^{\prime}\right) q\left(x \mid x^{\prime}\right), p(x) q\left(x^{\prime} \mid x\right)\right\}
+\end{align*}
 
 Thus $p$ is a stationary distribution of this Markov chain.

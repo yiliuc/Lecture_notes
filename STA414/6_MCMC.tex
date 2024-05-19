@@ -68,7 +68,7 @@ The stationary\footnote{the "stationary" in "stationary distribution" is not as 
     $$\pi_t=A^{\top} \pi_{t-1}=A^{\top} A^{\top} \pi_{t-2}=\cdots=\left(A^{\top}\right)^t \pi_0$$
     \item If we do this for many steps; eventually, the distribution of $\pi_t$ may converge:
     $$\pi=A^T\pi$$
-    which is the stationary distribution of the Markov chain.
+    which is the stationary distribution of the Markov chain\footnote{An example of how to compute the stationary distribution can be found \hyperref[sec:example-stationary]{here}.}
 \end{itemize}
 
 \textbf{Recall: Eigenvalues and Eigenvectors}\\
@@ -77,9 +77,6 @@ $$T\mathbf{v}=\lambda\mathbf{v}$$
 Then $\mathbf{v}$ is the eigenvector of $T$ and $\lambda$ is the eigenvalue.\\
 
 Therefore, it follows that the statioanary distribution $\pi$ is an eigenvector of $A^T$ with eigenvalue 1. In other words, $A$ and $A^T$ have the same eigenvalues and $A\mathbf{1}=\mathbf{1}$ as the row sum of $A$ is 1. Thus, due to the equality of characteristics polynomials, 1 is also the eigenvalue of $A^T$. More importantly, \colorbox{yellow}{\textbf{stationary distribution is NOT unique}}.\\
-
-\textit{An example of how to compute the stationary distribution can be found here}.
-
 \subsubsection*{Detailed balance equation}
 Markov Chain is called:
 \begin{itemize}
@@ -94,7 +91,7 @@ Markov Chain is called:
 \begin{theorem}
     If a markov chain with transition matrix $A$ satisfies the detailed balance with respect to distribution $\pi$, then $\pi$ is a stationary distribution.
 \end{theorem}
-Recall in rejection sampling, we accept the samples independently. In contrast, we assume the samples are \textbf{dependent}, where each sample is a state in the Markov chain and $x^{(t)}$ has a probability distribution depending on the previous one $x^{t-1}$. In other words, we will \textbf{learn} from the previous samples. Hence the stationary distribution will be $p(x)$.\\
+Recall in rejection sampling, we accept the samples independently. In contrast, we assume the samples are \textbf{dependent}, where each sample is a state in the Markov chain and $x^{(t)}$ has a probability distribution depending on $x^{t-1}$. In other words, we will \textbf{learn} from the previous samples. Hence the stationary distribution will be $p(x)$.\\
 
 \subsection{Metropolis-Hasting Algorithms}
 
@@ -103,15 +100,17 @@ Compared to rejection sampling, metropolis-hasting prose a simple density $q$ wh
     \item We firstly have a tentative new state $x^{\prime}$ is generated from the proposal density $q\left(x^{\prime} | x^{(t)}\right)$. We accept the new state with probability
     \item We then compute:
     $$
-    A\left(x^{\prime}|x^{(t)}\right)=\min \left\{1, \underbrace{\frac{\tilde{p}\left(x^{\prime}\right) q\left(x^{(t)}|x^{\prime}\right)}{\tilde{p}\left(x^{(t)}\right) q\left(x^{\prime} | x^{(t)}\right)}}_{\mathcal{B}}\right\}
+    A\left(x^{\prime}|x^{(t)}\right)=\min \Biggl\{1, \underbrace{\frac{\tilde{p}\left(x^{\prime}\right) q\left(x^{(t)}|x^{\prime}\right)}{\tilde{p}\left(x^{(t)}\right) q\left(x^{\prime} | x^{(t)}\right)}}_{\mathcal{B}}\Biggl\}
     $$
     \item for $\mathcal{B}$
     \begin{itemize}
-        \item If $\mathcal{B}>1$, then accept the new state.
-        \item If $\mathcal{B}<1$, we sample $u\sim N(0,1)$. Accept if $u\leq\mathcal{B}$;otherwise reject.
+        \item If $\mathcal{B}>1$, then accept the new state $\prime{x}$.
+        \item If $\mathcal{B}<1$, we sample $u\sim N(0,1)$. Accept if $u\leq\mathcal{B}$; otherwise reject.
     \end{itemize}
 \end{itemize}
--Metropolis: Simpler version when $q\left(x^{\prime} | x\right)=q\left(x \mid x^{\prime}\right)$ for all $x, x^{\prime}$.
+\textbf{Metropolis algorithm}: Simpler version when $q\left(x^{\prime} | x\right)=q\left(x \mid x^{\prime}\right)$ for all $x, x^{\prime}$.
 \begin{theorem}
     This procedure defines a Markov chain with stationary distribution $\pi(x)$ equal to the target distribution $p(x)$. $\pi(x)=p(x)$. \textit{proof \hyperref[sec:proof-metro]{here}}
 \end{theorem}
+
+\subsection{Gibbs Samplign Procedure}
