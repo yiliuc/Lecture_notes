@@ -114,3 +114,56 @@ Compared to rejection sampling, metropolis-hasting prose a simple density $q$ wh
 \end{theorem}
 
 \subsection{Gibbs Samplign Procedure}
+Gibbs sampling is used when we have two or more dimensions to sample. For example, for bivariate gaussian distribution, $p(x,y)$ is difficult to compute but the conditional distribution $p(y|x)$ and $p(x|y)$ are easier. It works as follows:
+\begin{itemize}
+    \item Suppose the vector $x$ is d-dimensional
+    $$
+    x=\left(x_1, \ldots, x_d\right) .
+    $$
+    \item Start with any $x^{(0)}=\left(x_1^{(0)}, \ldots, x_d^{(0)}\right)$. For $j=1, \ldots, d$ :
+    \begin{itemize}
+        \item Sample $x_j^{(t)}$ from the conditional distribution given other components:
+        $$
+        x_j^{(t)} \sim p\left(x_j \mid x_{-j}^{(t-1)}\right)
+        $$
+        Where $x_{-j}^{(t-1)}$ represents all the components of $x$ except for $x_j$ at their current values:
+        $$
+        x_{-j}^{(t-1)}=\left(x_1^{(t)}, x_2^{(t)}, \ldots, x_{j-1}^{(t)}, x_{j+1}^{(t-1)}, \ldots, x_d^{(t-1)}\right)
+        $$
+    \end{itemize}
+   
+    \item No accept/reject, only accept.
+\end{itemize}
+In bivariate gaussian cases, we just sample $y$ and $x$ iteratively.
+\subsubsection*{Recap: Conditional Distributio on Bivariate Gaussian}
+Suppose we have two random variables $X_1$ and $X_2$, which follow Gaussian Distribution.
+$$
+X=\left[\begin{array}{l}
+X_1 \\
+X_2
+\end{array}\right] \sim N_2(\mu, \Sigma), \quad \mu=\left[\begin{array}{l}
+\mu_1 \\
+\mu_2
+\end{array}\right], \quad \Sigma=\left[\begin{array}{ll}
+1 & \rho \\
+\rho & 1
+\end{array}\right] .
+$$
+
+Then:
+$$
+\begin{aligned}
+& X_1 \mid X_2=x_2 \sim N\left(\mu_1+\rho\left(x_2-\mu_2\right), 1-\rho^2\right) \\
+& X_2 \mid X_1=x_1 \sim N\left(\mu_2+\rho\left(x_1-\mu_1\right), 1-\rho^2\right)
+\end{aligned}
+$$
+
+Given $X^{(0)}=(0,0)$ we proceed iteratively for $t \geq 1$ :
+$$
+\begin{gathered}
+X_1^{(t)} \sim N\left(\mu_1+\rho\left(x_2^{(t-1)}-\mu_2\right), 1-\rho^2\right) \\
+X_2^{(t)} \sim N\left(\mu_2+\rho\left(x_1^{(t)}-\mu_1\right), 1-\rho^2\right)
+\end{gathered}
+$$
+
+\subsection{Hamiltonian Monte Carlo}
