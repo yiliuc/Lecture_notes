@@ -8,21 +8,21 @@ $$\underbrace{p(z|x)}_{\text{posterior}}=\frac{\overbrace{p(x|z)}^{\text{likelih
     The TrueSkill model we introduced earlier is indeed a latent variable model.
     \begin{figure}[H]
         \centering
-        \includegraphics[width = .4\linewidth]{figures/section7/figure_7_1.png}
+        \includegraphics[width = .4\linewidth]{figures/section8/figure_8_1.png}
         \caption{Contour plot between two players}
         \label{fig:prior_trueskill}
     \end{figure}
     The above graph shows the contour graph between the two players. Since we assume both players follows Gaussian distribution, we are uncertain about players skills and hence we observe perfect "circles." Each contour represent different values of pdf. It goes higher when we move to the center. The blue dashed line represent equal skills between the two players. \href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution#/media/File:Multivariate_Gaussian.png}{Here} is 3D view of the bivariate Gaussian distribution.
     \begin{figure}[H]
         \centering
-        \includegraphics[width = .4\linewidth]{figures/section7/figure_7_2.png}
+        \includegraphics[width = .4\linewidth]{figures/section8/figure_8_2.png}
         \caption{2D projection of likelihood}
         \label{fig:likelihood_trueskill}
     \end{figure}
     The above graph shows the 2D projection of the likelihood $p(i\:\text{i beats j}|z_i,z_j)=\sigma(z_i-z_j)$.
     \begin{figure}[H]
         \centering
-        \includegraphics[width = .4\linewidth]{figures/section7/figure_7_3.png}
+        \includegraphics[width = .4\linewidth]{figures/section8/figure_8_3.png}
         \caption{The posterior}
         \label{fig:posterior_trueskill}
     \end{figure}
