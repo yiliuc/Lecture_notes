@@ -167,3 +167,63 @@ X_2^{(t)} \sim N\left(\mu_2+\rho\left(x_1^{(t)}-\mu_1\right), 1-\rho^2\right)
 $$
 
 \subsection{Hamiltonian Monte Carlo}
+Hamiltonian Monte Carlo is a specialized Metropolis-Hasting algorithm. We will use physical analogy to make samples.
+\begin{itemize}
+    \item We assume the \textbf{potential energy} for each data point is $E(x)$.
+    \item The distribution $p(x)$:
+    $$p(x) \propto e^{-E(x)}, \quad\text{with}\quad E(x)=-\log (\tilde{p}(x))$$
+    \item Introduce \textbf{momentum} $v$ carrying the kinetic energy
+    $$
+    K(v)=\frac{1}{2}\|v\|^2=\frac{1}{2} v^{\top} v .
+    $$
+    \item The \textbf{total energy/hamiltonian} is the sum of potential energy and kinetic energy
+    $$
+    H(x, v)=E(x)+K(v) .
+    $$
+    \item The joint distribution will be:
+    $$p(x, v) \propto e^{-E(x)} e^{-K(v)}=e^{-E(x)-K(v)}=e^{-H(x, v)}$$
+    \item Same as physic, we assume the energy is preserved. That said:
+    \begin{itemize}
+        \item Frictionless ball rolling $(x, v) \rightarrow\left(x^{\prime}, v^{\prime}\right)$
+        \item $H(x, v)=H\left(x^{\prime}, v^{\prime}\right)$.
+    \end{itemize}
+    \item Ideal Hamiltonian dynamics are reversible: reverse $v$ and the ball will return to its start point! $\quad(x, v) \rightarrow\left(x^{\prime}, v^{\prime}\right)$ but also $\left(x^{\prime},-v^{\prime}\right) \rightarrow(x,-v)$
+\end{itemize}
+Compared to Metropolis-Hastings, Hamiltonian Monte Carlo generate the momentum and move to a new postion, which is the new state $x^\prime$.
+\subsubsection*{Leap-frog integrator}
+Like we just introduced, we want to move to a new state $(x^\prime,v^\prime)$. The numerical approximation is finished by leap-frog integrator. One complete leap-frog integrator works as follows. Let $\epsilon$ as the step size:
+\begin{enumerate}
+    \item Momentum half update
+    $$v\left(t+\frac{\epsilon}{2}\right)=v(t)+\frac{\epsilon}{2} \frac{\mathrm{d} v}{\mathrm{~d} t}(t)=v(t)-\frac{\epsilon}{2}\left. \frac{\partial E}{\partial x}\right|_{(x(t))}$$
+    \item Position full update 
+    $$x(t+\epsilon)=x(t)+\epsilon \frac{\mathrm{d} x}{\mathrm{~d} t}(t)=x(t)+\epsilon \left.\frac{\partial K}{\partial v}\right|_{\left(v\left(t+\frac{\epsilon}{2}\right)\right)}$$
+    \item Momentum full update
+    $$v(t+\epsilon)=v\left(t+\frac{\epsilon}{2}\right)-\frac{\epsilon}{2} \left.\frac{\partial E}{\partial x}\right|_{(x(t+\epsilon))}$$
+\end{enumerate}
+The resulting $x(t+\epsilon)$ and $v(t+\epsilon)$ are the $x^\prime$ and $v^\prime$. We do a fixed number of leap-frog steps.
+\subsubsection*{Full HMC algorithm}
+The HMC algorithm (run until it mixes):
+\begin{itemize}
+    \item Current position: $\left.\left(x^{(t-1)}, v^{(t-1)}\right)\right)$
+    \item Sample momentum: $v^{(t)} \sim \mathcal{N}(0, I)$.
+    \item Start at $(x, v)=\left(x^{(t-1)}, v^{(t)}\right)$ and run Leapfrog integrator for $L$ steps and reach $\left(x^{\prime}, v^{\prime}\right)$
+    \item Accept new state $\left(x^{\prime},-v^{\prime}\right)$ with probability:
+    $$
+    \min \Biggl\{1, \underbrace{\frac{\exp \left(H\left(x^{(t-1)}, v^{(t-1)}\right)\right)}{\exp \left(H\left(x^{\prime}, v^{\prime}\right)\right)}}_{\mathcal{B}}\Biggl\}
+    $$
+    Similar to Metropolis-hastings. For $\mathcal{B}$:
+    \begin{itemize}
+        \item If $\mathcal{B}>1$, then accept the new state $\prime{x}$.
+        \item If $\mathcal{B}<1$, we sample $u\sim N(0,1)$. Accept if $u\leq\mathcal{B}$; otherwise reject.
+    \end{itemize}
+    \item \textbf{Low energy} points are favored.
+\end{itemize}
+
+\subsection{MCMC Diagnostics}
+We use $\hat{R}$ and $\hat{n}_{eff}$ to diagnose MCMC.
+\begin{itemize}
+    \item Once $\hat{R}$ is near 1 , and $\hat{n}_{\text {eff }}$ is more than 10 per chain for all scalar estimands we collect the mn simulations, (excluding the burn-in).
+    \item We can then draw inference based on our samples. However:
+    \item Even if the iterative simulations appear to have converged, passed all tests etc. It may still be far from convergence!
+    \item When we declare "convergence" - we mean that all chains appear stationary and well mixed.
+\end{itemize}
