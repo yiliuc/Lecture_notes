@@ -96,3 +96,20 @@ H(q) & =\mathbb{E}_q[-\log q(x)]=-\sum_x q(x) \log q(x)=-\sum_x q(x)\left[\sum_i
 \end{aligned}
 $$
 This tells us the general result on how to find $H(q)$ from each $q_i$, we can thus write everything as a function of $q_i$ for $i \in V$.
+
+\subsection{Evidence Lower Bound (ELBO)}
+\begin{align*} 
+    \mathrm{KL}\left(q_\phi(z) \| p(z \mid x)\right) & =\underset{z \sim q_\phi}{\mathbb{E}} \log \frac{q_\phi(z)}{p(z \mid x)} \\ 
+    & =\underset{z \sim q_\phi}{\mathbb{E}}\left[\log \left(q_\phi(z) \cdot \frac{p(x)}{p(z, x)}\right)\right] \\ 
+    & =\underset{z \sim q_\phi}{\mathbb{E}}\left[\log \frac{q_\phi(z)}{p(z, x)}\right]+\underset{z \sim q_\phi}{\mathbb{E}} \log p(x) \\ 
+    & :=-\underbrace{\mathcal{L}(\phi)}_{ELBO}+\log p(x)
+\end{align*}
+Further simplification, we have:
+\begin{align*}
+\mathcal{L}(\phi)&=\underset{z \sim q_\phi}{\mathbb{E}}\left[\log p(z, x)-\log q_\phi(z)\right]\\
+&=\underbrace{\underset{z \sim q_\phi}{\mathbb{E}}[\log p(z, x)]}_{\text{expected log-join}}+\underbrace{\underset{z \sim q_\phi}{\mathbb{E}}\left[-\log q_\phi(z)\right]}_{\text{entropy}}
+\end{align*}
+Rearrange, we have:
+$$\mathcal{L}(\phi)+\underbrace{\mathrm{KL}\left(q_\phi(z) \| p(z \mid x)\right)}_{\geq 0}=\log p(x)$$
+$$\Rightarrow \mathcal{L}(\phi)\leq \log p(x)$$
+Therefore, maximizing the ELBO is equivalent to minimize the KL divergence.
