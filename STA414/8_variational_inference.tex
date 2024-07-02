@@ -114,3 +114,40 @@ $$\mathcal{L}(\phi)+\underbrace{\mathrm{KL}\left(q_\phi(z) \| p(z \mid x)\right)
 $$\Rightarrow \mathcal{L}(\phi)\leq \log p(x)$$
 Therefore, maximizing the ELBO is equivalent to minimize the KL divergence.
 \subsubsection{Maximizing the KL divergence}
+Since $\nabla \mathcal{L}(\phi)$ is the direction of the steepest ascent of $\mathcal{L}(\phi)$. In other words, imagine you are climbing a mountain, the corresponding $\nabla \mathcal{L}(\phi)$ at any points represent the fastest direction (way) to climb upwards. Equivalently, $-\nabla \mathcal{L}(\phi)$ is the direction of the steepest descent of $\mathcal{L}(\phi)$.\\
+
+We will use method of \textbf{gradient descent.}
+$$\phi_{t+1}=\phi_t+\underbrace{s_t}_{\text{negative}} \nabla \mathcal{L}\left(\phi_t\right)$$
+In general, to estimate the gradient of $\mathbb{E}(f(Y, \phi))$, if $Y$ is independent of $\phi$, then:
+$$\nabla_\phi \mathbb{E}(f(Y, \phi))=\mathbb{E}\left(\nabla_\phi f(Y, \phi)\right)$$
+However, since $z$ is not independent of $\phi$, meaning that
+$$\nabla_{\phi} \underset{z \sim q_\phi}{\mathbb{E}}\left[\log p(x, z)-\log q_\phi(z)\right] \neq \underset{z \sim q_\phi}{\mathbb{E}}\left[\nabla_\phi\left(\log p(x, z)-\log q_\phi(z)\right)\right]$$
+\subsubsection*{Reparametrization Trick}
+We can solve this problem by reparametrization trick. Suppose that $z \sim q_\phi$ has the same distribution as $T(\epsilon, \phi)$, where $\epsilon$ is a random variable whose distribution $p_0$ does not depend on $\phi$. In this case, to sample $z \sim q_\phi$ by:
+\begin{itemize}
+\item Sampling a random variable $\epsilon \sim p_0$,
+\item Deterministically computing $z=T(\epsilon, \phi)$.
+\end{itemize}
+If $z=T(\epsilon, \phi)$, then
+$$
+\underset{z \sim q_\phi}{\mathbb{E}}\left[\log p(x, z)-\log q_\phi(z)\right]=\underset{\epsilon \sim p_0}{\mathbb{E}}\left[\log p(x, T(\epsilon, \phi))-\log q_\phi(T(\epsilon, \phi))\right]
+$$
+Equivalently
+$$
+\begin{aligned}
+\nabla_\phi \mathcal{L}(\phi) & =\nabla_\phi \mathbb{E}_{z \sim q_\phi(z)}\left[\log p(x, z)-\log q_\phi(z)\right] \\
+& =\nabla_\phi \mathbb{E}_{\epsilon \sim p_0(\epsilon)}\left[\log p(x, T(\phi, \epsilon))-\log q_\phi(T(\phi, \epsilon))\right] \\
+& =\mathbb{E}_{\epsilon \sim p_0(\epsilon)} \nabla_\phi\left[\log p(x, T(\phi, \epsilon))-\log q_\phi(T(\phi, \epsilon))\right] .
+\end{aligned}
+$$
+so generating a sample $\epsilon_1, \ldots, \epsilon_m$ from $p_0$, we get
+$$
+\nabla_\phi \mathcal{L}(\phi) \approx \underbrace{\frac{1}{m} \sum_{i=1}^m \nabla_\phi\left[\log p\left(x, T\left(\phi, \epsilon_i\right)\right)-\log q_\phi\left(T\left(\phi, \epsilon_i\right)\right)\right]}_{\text{Simple Monte Carlo}}.
+$$
+\subsubsection{Stochastic Variational Inference}
+Recall: $\mathcal{L}\left(\theta, \phi_{1: N} \mid x_{1: N}\right)=\sum_{n=1}^N \mathcal{L}\left(\theta, \phi_n \mid x_n\right)$\\
+Instead of computing the full gradient with respect to $\theta$ (which is in general not possible), we compute a simple Monte Carlo estimate of it.\\
+For example, at each step we can draw a random minibatch of $B=|\mathcal{B}|$ examples from the dataset, and then make an approximation sub-sauple descent.
+$$
+\mathcal{L}\left(\theta, \phi_{1: N} \mid x_{1: N}\right) \approx \frac{N}{B} \sum_{x_n \in \mathcal{B}} \mathcal{L}\left(\theta, \phi_n \mid x_n\right)
+$$
