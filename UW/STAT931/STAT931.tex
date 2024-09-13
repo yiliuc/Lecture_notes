@@ -1,0 +1,85 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb} 
+\usepackage[hidelinks]{hyperref} % Add hidelinks to suppress link boxes
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage{float,graphicx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+% new functions
+\newcommand{\subsubsubsection}[1]{\vspace{-1em}\paragraph{#1}\mbox{}\\\vspace{-0.5em}}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}[section]
+
+\newtheorem{example}{Example}
+
+\makeatletter
+\newcommand\thefontsize{The current font size is: \f@size pt}
+\makeatother
+
+% set noindent
+\setlength{\parindent}{0pt}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{example}{subsection}
+\numberwithin{theorem}{subsection}
+
+
+% Set the font size
+% Set the font size for \section
+\titleformat{\section}
+  {\normalfont\fontsize{16}{16}\bfseries}{\thesection}{1em}{}
+
+% Set the font size for \subsection
+\titleformat{\subsection}
+  {\normalfont\fontsize{14}{14}\bfseries}{\thesubsection}{1em}{}
+
+% Set the font size for \subsubsection
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{14}{14}\bfseries}{\thesubsubsection}{1em}{}
+
+% Geometry Settings
+\geometry{margin=1in}
+
+% Header and Footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{STAT931}
+\fancyfoot[R]{\thepage}
+
+% Title
+\title{STAT931: Causal Inference and Epidemiological Studies \\ Lecture Notes}
+\author{Yiliu Cao}
+\date{Sept 13, 2024}
+
+% Table of Contents Settings
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Title Page
+\maketitle
+\thispagestyle{empty}
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+%-------------1: Probabilistic models-----------
+\input{codes/1_introduction.tex}
+
+
+\newpage
+
+%-------------Appendix-----------
+\end{document}

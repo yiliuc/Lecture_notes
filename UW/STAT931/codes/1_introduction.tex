@@ -1,0 +1,92 @@
+\section{Introduction}
+\subsection{Quantities of Interest}
+In Epidemiological Studies, we want to measure the occurence. More specifically, we want to measure the \textbf{prevalence} and \textbf{incidence}.
+\subsubsection*{Prevalence}
+There are two measures of prevalence
+\begin{enumerate}
+    \item \textbf{Point Prevalence}: The proportion of at-risk population affected at a specific time \textbf{point}. Formally:
+    \item \textbf{Period Prevalence}: The proportion of at-risk population affected at a specific time \textbf{period}.
+\end{enumerate}
+\subsubsection*{Incidence}
+There are also two measures of incidence.
+\begin{enumerate}
+    \item \textbf{Incidence Proportion}: The proportion of a defined at-risk population who has affected within a specific time \textbf{point}.
+    \item \textbf{Incidence Rate}: 
+\end{enumerate}
+\subsection{Association}
+Association is \textbf{NOT} causation, it is the comparisions between groups.
+\begin{definition}
+    \textbf{Relative Risk} of an outcome Y with a binary risk factor A is:$$
+    RR=\frac{P(Y=1 \mid A=1)}{P(Y=1 \mid A=0)}
+    $$
+    where $0<RR<\infty$
+\end{definition}
+Note that:
+\begin{enumerate}
+    \item $P(A=1)+P(A=0)=1$
+    \item $RR=1\implies Y=1 \perp A=1\implies\text{No association between Y and A}$
+    \item $
+    \text {If } RR>1 \text {, there is greater risk of } Y=1 \text { when } A=1 \text { vs } A=0, vice-versa
+    $
+    \item $\frac{P(Y=1 \mid A=1)}{P(Y=1 \mid A=0)}\neq \frac{P(A=1 \mid Y=1)}{P(A=1 \mid Y=0)}$
+\end{enumerate}
+\begin{definition}
+    \textbf{Odds Ratio}\par
+    \begin{itemize}
+        \item The odds of a disease $Y$ among the exposed $A=1$
+
+        $$
+        \left.=\frac{P(Y=1 \mid A=1}{P(Y=0 \mid A=1)}\right)=\frac{P(Y=1 \mid A=1)}{1-P(Y=1 \mid A=1)}
+        $$
+        
+        \item The odds of disease $Y$ among the unexposed $A=0$
+        
+        $$
+        =\frac{P(Y=1 \mid A=0)}{P(Y=0 \mid A=0)} \frac{P(Y=1 \mid A=0)}{1-P(Y=1 \mid A=0)}
+        $$
+        
+        \item The odds ratio for measuring the association of disease with the exposed vs. unexposed groups is:        
+        \begin{align*}
+            OR & =\frac{P(Y=1 \mid A=1) / P(Y=0 \mid A=1)}{P(Y=1 \mid A=0) / P(Y=0 \mid A=0)}\\
+            &=\frac{P(Y=1 \mid A=1) /[1-P(Y=1 \mid A=1)]}{P(Y=1 \mid A=0) /[1-P(Y=1 \mid A=0)]}\\
+            &=\underbrace{\frac{P(Y=1 \mid A=1)}{P(Y=1 \mid A=0)}}_{RR}\times\frac{P(Y=0 \mid A=0)}{P(Y=0 \mid A=1)}
+        \end{align*}        
+    \end{itemize}
+\end{definition}
+Note that:
+\begin{enumerate}
+    \item $OR=1\Leftrightarrow log(OR)=0\:\text{means no association between}\:Y\:\text{and}\:A$
+    \item $OR\leq 1\:\text{means greater odds of ratio when exposed}$
+    \item The OR for Y given A is equal to the OR for A given Y$$
+    OR=\frac{\frac{P(Y=1 \mid A=1)}{P(Y=0 \mid A=1)}}{\frac{P(Y=1 \mid A=0)}{P(Y=0 \mid A=0)}}=\frac{\frac{P(A=1 \mid Y=1)}{P(A=0 \mid Y=1)}}{\frac{P(A=1 \mid Y=0)}{P(A=0 \mid Y=0)}}
+    $$
+    \item OR is a goods estimate of RR for rare disease as the second term above will approximate to 0.
+    \item $RR>1\implies OR>RR,\:RR<1\implies OR<RR$
+\end{enumerate}
+\begin{definition}
+    \textbf{Risk difference}\\
+    $$
+    RD=P(Y=1 \mid A=1)-P(Y=1 \mid A=0)
+    $$
+    where $-1<RD<1$
+\end{definition}
+This can be understood as the additional risk when exposed. In addition, a positive $RD$ means a greater risk when exposed, vice-versa.
+\begin{definition}
+    \textbf{Attributable Risk(AR)}\\
+    AR is the fraction of the cases of the outcome $Y=1$ that can be attributed to $A=1$
+    $$
+    AR=\frac{P(Y=1)-P(Y=1 \mid A=0)}{P(Y=1)}
+    $$
+    Furthermore:
+    \begin{align*}
+    AR&=\frac{P(A=1)[P(Y=1 \mid A=1)-P(Y=1 \mid A=0)]}{[P(Y=1 \mid A=1) P(A=1)]+[P(Y=1 \mid A=0) P(A=0)]}\\
+    &=\frac{P(A=1)[R R-1]}{[P(A=1) R R]+P(A=0)}=\frac{P(A=1)[R R-1]}{(P(A=1)[R R-1])+1}
+    \end{align*}
+    We can see that the $AR$ depends on both the association between $A$ and $Y$ via $RR$, and the prevalence of risk factor at $A=1$
+\end{definition}
+Note that:
+\begin{enumerate}
+    \item $ AR=0 \Longleftrightarrow RD=0 \Longleftrightarrow O R=1 \Longleftrightarrow R R=1 $ is null, meaning that $A\perp Y$
+    \item $AR>0$ means the A will rise the risk of Y; $AR<0$ means A is protective, decrease the risk of Y.
+    \item $AR$ does not imply causation.
+\end{enumerate}
