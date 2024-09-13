@@ -8,21 +8,21 @@ $$\underbrace{p(z|x)}_{\text{posterior}}=\frac{\overbrace{p(x|z)}^{\text{likelih
     The TrueSkill model we introduced earlier is indeed a latent variable model.
     \begin{figure}[H]
         \centering
-        \includegraphics[width = .4\linewidth]{figures/section8/figure_8_1.png}
+        \includegraphics[width = .4\linewidth]{codes/figures/section8/figure_8_1.png}
         \caption{Contour plot between two players}
         \label{fig:prior_trueskill}
     \end{figure}
     The above graph shows the contour graph between the two players. Since we assume both players follows Gaussian distribution, we are uncertain about players skills and hence we observe perfect "circles." Each contour represent different values of pdf. It goes higher when we move to the center. The blue dashed line represent equal skills between the two players. \href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution#/media/File:Multivariate_Gaussian.png}{Here} is 3D view of the bivariate Gaussian distribution.
     \begin{figure}[H]
         \centering
-        \includegraphics[width = .4\linewidth]{figures/section8/figure_8_2.png}
+        \includegraphics[width = .4\linewidth]{codes/figures/section8/figure_8_2.png}
         \caption{2D projection of likelihood}
         \label{fig:likelihood_trueskill}
     \end{figure}
     The above graph shows the 2D projection of the likelihood $p(i\:\text{i beats j}|z_i,z_j)=\sigma(z_i-z_j)$.
     \begin{figure}[H]
         \centering
-        \includegraphics[width = .4\linewidth]{figures/section8/figure_8_3.png}
+        \includegraphics[width = .4\linewidth]{codes/figures/section8/figure_8_3.png}
         \caption{The posterior}
         \label{fig:posterior_trueskill}
     \end{figure}
@@ -49,7 +49,7 @@ $$q^*=\arg \min _{q \in Q} \mathrm{KL}(q \| p)=\mathbb{E}_{x \sim q(x)} \log \fr
 \end{itemize}
 \begin{figure}[H]
     \centering
-    \includegraphics[width = .4\linewidth]{figures/section8/figure_8_4.png}
+    \includegraphics[width = .4\linewidth]{codes/figures/section8/figure_8_4.png}
     \caption{An example of I-projection}
     \label{fig:I-projection}
 \end{figure}
@@ -66,7 +66,7 @@ $$q^*=\arg \min _{q \in Q} \mathrm{KL}(p \| q)=\mathbb{E}_{x \sim q(x)} \log \fr
 \begin{figure}[H]
     \centering
     \caption{An example of M-projection}
-    \includegraphics[width = .3\linewidth]{figures/section8/figure_8_5.png}
+    \includegraphics[width = .3\linewidth]{codes/figures/section8/figure_8_5.png}
     \label{fig:M-projection}
 \end{figure}
 

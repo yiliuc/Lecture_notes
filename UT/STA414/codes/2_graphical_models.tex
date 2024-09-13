@@ -21,7 +21,7 @@ For three random variables $x_A,\:x_B\:x_C$, if $x_A,\:x_B$ are conditionally in
 A directed cyclic graphical model encode a particular form of factorization of the joint distribution. The form of factorization is various.\\
 \begin{figure}
     \centering
-    \includegraphics[width=.7\linewidth]{figures/section2/figure_2_1.png}
+    \includegraphics[width=.7\linewidth]{codes/figures/section2/figure_2_1.png}
     \caption{An example of conditional probability tables(CPT)}
     \label{fig:figure_2}
 \end{figure}
@@ -34,7 +34,7 @@ Bayes ball determines the conditional independence/dependence in a DAG (I person
 
   \begin{figure}[H]
     \centering
-    \includegraphics[width = .7\linewidth]{figures/section2/figure_2_2.png}
+    \includegraphics[width = .7\linewidth]{codes/figures/section2/figure_2_2.png}
     \caption{An illustration of causal chain}
   \end{figure}
   \begin{align*}
@@ -48,7 +48,7 @@ Bayes ball determines the conditional independence/dependence in a DAG (I person
 
   \begin{figure}[H]
     \centering
-    \includegraphics[width = .7\linewidth]{figures/section2/figure_2_3.png}
+    \includegraphics[width = .7\linewidth]{codes/figures/section2/figure_2_3.png}
     \caption{An illustration of common cause}
   \end{figure}
   \begin{align*}
@@ -62,7 +62,7 @@ Bayes ball determines the conditional independence/dependence in a DAG (I person
 
   \begin{figure}[H]
     \centering
-    \includegraphics[width = .7\linewidth]{figures/section2/figure_2_4.png}
+    \includegraphics[width = .7\linewidth]{codes/figures/section2/figure_2_4.png}
     \caption{An illustration of explaining away}
   \end{figure}
   \begin{align*}
@@ -81,7 +81,7 @@ In general, the Bayes ball works as follows:
 \textit{Question:} Is $x_2\perp x_3\mid\{x_1,\:x_6\}$
 \begin{figure}[H]
     \centering
-    \includegraphics[width = .7\linewidth]{figures/section2/figure_2_5.png}
+    \includegraphics[width = .7\linewidth]{codes/figures/section2/figure_2_5.png}
     \caption{An illustration of explaining away}
 \end{figure}
 \textit{Answer:} No. By Bayes ball algorithm, $x_2$ can travel to $x_5$, and hence can travel to $x_3$.
@@ -106,7 +106,7 @@ Like I said, I personally do not like Bayes algorithm. Instead, another one call
 The undirected graphical models are also called the \textbf{Markov random fields (MRFs)}. Compare to graphical models, we have no more directed edges; instead, the dependencies are now described as undirected graphs. Moreover, \textbf{Markov blanket} is the set of nodes that makes $X_i$ conditionally independent of all other nodes. \textbf{Clique} is a subset of nodes that every two nodes are connected by an edge. \textbf{Maximal clique} a clique that can not be extended by including one more adjacent vertex.
 \begin{figure}[H]
     \centering
-    \includegraphics[width = .7\linewidth]{figures/section2/figure_2_6.png}
+    \includegraphics[width = .7\linewidth]{codes/figures/section2/figure_2_6.png}
     \caption{An example of Markov random fields: \{1, 2, 3\} is a clique and \{4, 5, 6, 7\} is a maximal clique}
     \label{fig:mrf}
 \end{figure}
@@ -225,7 +225,7 @@ Conditional independence:
 Hence we have the \textbf{Gaussian Graphical models}
 \begin{figure}[H]
   \centering
-  \includegraphics[width = .7\linewidth]{figures/section2/figure_2_7.png}
+  \includegraphics[width = .7\linewidth]{codes/figures/section2/figure_2_7.png}
   \caption{An example of Gaussian Graphical model}
   \label{fig:ggm}
 \end{figure}
