@@ -90,3 +90,34 @@ Note that:
     \item $AR>0$ means the A will rise the risk of Y; $AR<0$ means A is protective, decrease the risk of Y.
     \item $AR$ does not imply causation.
 \end{enumerate}
+\subsection{Causation}
+Two variables are causally related if changing one can potentially change the level of the other. In causal inference, \( A \) represents the treatment, where \( A=1 \) stands for the exposed or treated group, and \( A=0 \) represents the unexposed or control group. The variable \( Y \) is the observed outcome.
+
+In contrast, we also have the concept of the \textbf{potential outcome}, which captures the outcome under different treatment conditions.
+\begin{definition}
+    \textbf{Potential Outcome and Individual Causal Effect (ICE)}\\
+    The potential outcome framework includes outcomes that may or may not be observed. More specifically:
+    \begin{itemize}
+        \item \( Y^0 \) (or \( Y(0) \)) is the potential outcome if assigned to the control group (\( A=0 \)).
+        \item \( Y^1 \) (or \( Y(1) \)) is the potential outcome if assigned to the treatment group (\( A=1 \)).
+    \end{itemize}
+    Importantly, only one of \( Y^0 \) or \( Y^1 \) is observed for any individual; the other is counterfactual. This is also called the \textbf{Foundamental Problem}.\\
+    
+    The \textbf{Individual Level Causal Effect (ICE)} is defined as:
+    \[
+    ICE = Y^1 - Y^0
+    \]
+\end{definition}
+
+Since we can only observe one of \( Y^1 \) and \( Y^0 \) for any individual, this is known as the \textbf{consistency assumption}. Formally, the observed outcome \( Y \) is represented as:
+\[
+Y = A Y^1 + (1 - A) Y^0 \quad \text{or} \quad Y = Y^A
+\]
+This implies that an individual cannot belong to both the treatment and control groups simultaneously. However, an individual can receive different treatments at different time points.
+
+\subsubsection{Stable Unit Treatment Value Assumption (SUTVA)}
+The consistency is implied by the \textbf{Stable Unit Treatment Value Assumption (SUTVA)}, which consists of two key conditions:
+\begin{enumerate}
+    \item \textbf{No interference}: The outcome of one individual is not affected by the treatment status of other individuals.
+    \item \textbf{Well-defined treatment}: There is a single version of the treatment; no multiple versions of the treatment exist.
+\end{enumerate}
