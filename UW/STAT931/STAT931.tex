@@ -11,12 +11,14 @@
 \usepackage{float,graphicx}
 \usepackage{xcolor}
 \usepackage{titlesec}
+\usepackage{array}
 
 % new functions
 \newcommand{\subsubsubsection}[1]{\vspace{-1em}\paragraph{#1}\mbox{}\\\vspace{-0.5em}}
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}[section]
 
 \newtheorem{example}{Example}
 
@@ -75,9 +77,11 @@
 \tableofcontents
 \newpage
 
-%-------------1: Probabilistic models-----------
+%-------------1: Introduction-----------
 \input{codes/1_introduction.tex}
 
+%-------------2: Randomized Trials-----------
+\input{codes/2_randomized_trials.tex}
 
 \newpage
 

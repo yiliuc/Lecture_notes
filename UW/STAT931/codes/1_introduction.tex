@@ -101,7 +101,7 @@ In contrast, we also have the concept of the \textbf{potential outcome}, which c
         \item \( Y^0 \) (or \( Y(0) \)) is the potential outcome if assigned to the control group (\( A=0 \)).
         \item \( Y^1 \) (or \( Y(1) \)) is the potential outcome if assigned to the treatment group (\( A=1 \)).
     \end{itemize}
-    Importantly, only one of \( Y^0 \) or \( Y^1 \) is observed for any individual; the other is counterfactual. This is also called the \textbf{Foundamental Problem}.\\
+    Importantly, in reality, only one of \( Y^0 \) or \( Y^1 \) is observed for any individual; the other is counterfactual. This is also called the \textbf{Foundamental Problem}.\\
     
     The \textbf{Individual Level Causal Effect (ICE)} is defined as:
     \[
@@ -115,9 +115,90 @@ Y = A Y^1 + (1 - A) Y^0 \quad \text{or} \quad Y = Y^A
 \]
 This implies that an individual cannot belong to both the treatment and control groups simultaneously. However, an individual can receive different treatments at different time points.
 
-\subsubsection{Stable Unit Treatment Value Assumption (SUTVA)}
-The consistency is implied by the \textbf{Stable Unit Treatment Value Assumption (SUTVA)}, which consists of two key conditions:
-\begin{enumerate}
-    \item \textbf{No interference}: The outcome of one individual is not affected by the treatment status of other individuals.
-    \item \textbf{Well-defined treatment}: There is a single version of the treatment; no multiple versions of the treatment exist.
-\end{enumerate}
+\begin{remark}
+    \textbf{Stable Unit Treatment Value Assumption (SUTVA)}\\
+    The consistency is implied by the \textbf{Stable Unit Treatment Value Assumption (SUTVA)}, which consists of two key conditions:
+    \begin{enumerate}
+        \item \textbf{No interference}: The outcome of one individual is not affected by the treatment status of other individuals.
+        \item \textbf{Well-defined treatment}: There is a single version of the treatment; no multiple versions of the treatment exist.
+    \end{enumerate}
+\end{remark}
+\begin{definition}
+    \textbf{Average Causal Effect (ACE)}\\
+    To solve the foundamental problem, instead of using ICE, we take ACE.
+    \begin{align*}
+        ACE&=E\left[Y^1-Y^0\right]\\
+        &=E\left[Y^1\right]-E\left[Y^0\right]\\
+        &=1\times P[Y^1=1]+0\times P[Y^1=0]-(1\times P[Y^0=1]+0\times P[Y^0=0])\\
+        &=P\left[Y^1=1\right]-P\left[Y^0=1\right]
+    \end{align*}
+\end{definition}
+\subsection{Association vs. Causation}
+\begin{remark}
+    $E[Y^1]\neq E[Y|A=1]$
+    \begin{itemize}
+        \item $E\left[Y^1\right]$ is a priori, and is the average value defined by the \textbf{entire population}.
+        \item $E[Y \mid A=1]$ is defined after treatment assignment, and averaged only \textbf{among} those who receive treatment $A=1$.
+        \item We use $E\left[Y^1\right]$ in Causation and $E[Y \mid A=1]$ in Association.
+    \end{itemize}
+\end{remark}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.7\linewidth]{codes/figures/section1/figure_1_1.png}
+    \caption{Visualization of Association and Causation}
+    \label{fig:as_ca}
+\end{figure}
+\hyperref[fig:as_ca]{Figure 1.1} visualizes the difference between association and causation. Moreover, like discussed above, we also have causal \textbf{Risk Ratio}, causal \textbf{Odds Ratio} and causal \textbf{Risk Difference}.
+\begin{definition}
+    \textbf{Measures of Causal Effect}\\
+    \begin{enumerate}
+        \item \textbf{Causal Risk Ratio}
+        $$
+        R R=\frac{P\left(Y^1=1\right)}{P\left(Y^0=1\right)}
+        $$
+        
+        \item \textbf{Causal Odds Ratio}
+        $$
+        O R=\frac{P\left(Y^1=1\right) /\left[1-P\left(Y^1=1\right)\right]}{P\left(Y^0=1\right) /\left[1-P\left(Y^0=1\right)\right]}
+        $$
+
+        \item \textbf{Causal Risk Difference}
+        
+        $$
+        R D=P\left(Y^1=1\right)-P\left(Y^0=1\right)
+        $$
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    \textbf{Summary of Association vs. Causation}\\
+    \begin{tabular}{p{7cm} p{7cm}}
+        \textbf{1. (Associational) Risk Ratio} &
+        \textbf{1. Causal Risk Ratio} \\
+        \[
+        RR = \frac{P(Y = 1 \mid A = 1)}{P(Y = 1 \mid A = 0)}
+        \] &
+        \[
+        RR = \frac{P(Y^1 = 1)}{P(Y^0 = 1)}
+        \] \\
+        \textbf{2. (Associational) Odds Ratio} &
+        \textbf{2. Causal Odds Ratio} \\
+        \[
+        OR = \frac{\frac{P(Y = 1 \mid A = 1)}{1 - P(Y = 1 \mid A = 1)}}{\frac{P(Y = 1 \mid A = 0)}{1 - P(Y = 1 \mid A = 0)}}
+        \] &
+        \[
+        OR = \frac{\frac{P(Y^1 = 1)}{1 - P(Y^1 = 1)}}{\frac{P(Y^0 = 1)}{1 - P(Y^0 = 1)}}
+        \] \\
+        \textbf{3. (Associational) Risk Difference} &
+        \textbf{3. Causal Risk Difference} \\
+        \[
+        RD = P(Y = 1 \mid A = 1) - P(Y = 1 \mid A = 0)
+        \] &
+        \[
+        RD = P(Y^1 = 1) - P(Y^0 = 1)
+        \]
+    \end{tabular}
+    
+\end{remark}
+
+The \textbf{Sharp Null/Causal Null} (for ACE) means no causal effect; equivalently $AR=0 \Longleftrightarrow RD=0 \Longleftrightarrow OR=1 \Longleftrightarrow RR=1$. However, holding sharp null for ACE does \textbf{NOT} necessarily mean the sharp null for individual causal effect also holds.
