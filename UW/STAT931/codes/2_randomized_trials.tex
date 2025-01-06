@@ -1,8 +1,8 @@
 \section{Randomized Trials}
 \subsection{Experimental Studies and Randomized Experiements}
-The expeimental studeis means that the investigator can \textbf{manipulate} the factor of interest to observe the effect on another variable. For example, we can give drugs to one group of people and compare the outcome to another group which did not take the drug.\\
+\textbf{Experimental studies} means the investigator can \textbf{manipulate} the factor of interest to observe the effect on another variable. For example, we can give drugs to one group of people and compare the outcome to another group which did not take the drug.\\
 
-Similarly, randomized experiment is a type of experiment in which participants are randomly assigned to different groups, meaning that each participant has equal chance to be assigned to treatment group. The randomization can be helpful to distribute both known and unknow confoudning variables, therefore can make a stronger claim.\\
+\textbf{Randomized experiment} is a type of experiment in which participants are randomly assigned to different groups, meaning that each participant has equal chance to be assigned to treatment group. The randomization can be helpful to distribute both known and unknow confoudning variables, therefore can make a stronger claim.\\
 
 However, the \textbf{foundamental problem} still exist, meaning that we still can not observe both $Y^0$ and $Y^1$ for any participant.
 \subsubsection*{Exchangeability}
@@ -10,16 +10,15 @@ Randomized experiment ensures exchangeability, which the treatment received is \
 \begin{itemize}
     \item $A \perp Y^1$ and $A \perp Y^0$
     \item $P\left(Y^1|A=1\right)=P\left(Y^1 \mid A=0\right)=P\left(Y^1\right)$
-    \item RD will be similar if we exchange the treatment and control group (control group now receive the treatment).
 \end{itemize}
-\subsubsection*{Causual effect to association}
+\subsubsection*{Identification under randomization}
 The causal effect is equal to association under randomization
 \begin{align*}
-E\left[Y^1\right]-E\left[Y^0\right] & =E\left[Y^1| A=1\right]-E\left[Y^0|A=0\right] \text { (by exchangeability/randomization) } \\
-& =E[Y|A=1]-E[Y|A=0] \text { (by consistency;$Y^A=Y$)}
+E\left[Y^1\right]-E\left[Y^0\right] & =E\left[Y^1| A=1\right]-E\left[Y^0|A=0\right] \text{ (by exchangeability/randomization) } \\
+& =E[Y|A=1]-E[Y|A=0] \text{ (by consistency; $Y^A=Y$)}
 \end{align*}
 We say ACE is identified. The associational RD is an estimate of the causal RD.
-\subsection{Radomization methods}
+\subsection{Randomization methods}
 \subsubsection*{Bernoulli Trial}
 \begin{itemize}
     \item Assign treatments based on the flips of coin.
