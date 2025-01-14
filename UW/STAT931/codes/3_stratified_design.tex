@@ -1,0 +1,12 @@
+\section{Stratified Designs}
+\subsection{Identification under conditional randomization}
+The pooling stratum-specific effects only works if there are no effect of modification. To identify the causal effects, we introduce two other methods which are \textbf{Standardization} and \textbf{Inverse Probability Weighting}. By the way, we say causal effect is identified if it can be written in terms of observed data.
+\subsubsection{Standardization}
+We would assume consistency which says $Y=Y^A$ by SUTVA and conditional exchangeability $A \perp Y^a \mid L \text { for } a=0,1$. Then we have:
+\begin{align*}
+E\left[Y^1\right] & =\sum_I E\left[Y^1 \mid L=I\right] P(L=I) \quad \text { (by total expectation) } \\
+& =\sum_I E\left[Y^1 \mid A=1, L=I\right] P(L=I) \quad \text { (by cond'l exchangeability/randomization) } \\
+& =\sum_l E[Y \mid A=1, L=I] P(L=I) \quad \text { (by consistency) }
+\end{align*}
+\subsubsection{Inverse Probability Weighting}
+We weight each outcome as the inverse 
